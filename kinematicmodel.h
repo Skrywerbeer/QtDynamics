@@ -8,10 +8,7 @@
 
 class KinematicModel : public QObject {
 		Q_OBJECT
-		Q_PROPERTY(double x \
-		           READ x \
-		           WRITE setX \
-		           NOTIFY xChanged)
+
 		Q_PROPERTY(double minimumX \
 		           READ minimumX \
 		           WRITE setMinimumX \
@@ -20,10 +17,6 @@ class KinematicModel : public QObject {
 		           READ maximumX \
 		           WRITE setMaximumX \
 		           NOTIFY maximumXChanged)
-		Q_PROPERTY(double y \
-		           READ y \
-		           WRITE setY \
-		           NOTIFY yChanged)
 		Q_PROPERTY(double minimumY \
 		           READ minimumY \
 		           WRITE setMinimumY \
@@ -60,15 +53,11 @@ class KinematicModel : public QObject {
 		               double aX, double aY,
 		               QObject *parent = nullptr);
 
-		double x() const;
-		void setX(const double &x);
 		double minimumX() const;
 		void setMinimumX(double minimum);
 		double maximumX() const;
 		void setMaximumX(double maximum);
 
-		double y() const;
-		void setY(const double &y);
 		double minimumY() const;
 		void setMinimumY(double minimum);
 		double maximumY() const;
@@ -94,12 +83,10 @@ class KinematicModel : public QObject {
 		static void registerType();
 
 	signals:
-		void xChanged();
 		void minimumXChanged();
 		void minimumXReached();
 		void maximumXChanged();
 		void maximumXReached();
-		void yChanged();
 		void minimumYChanged();
 		void minimumYReached();
 		void maximumYChanged();
@@ -111,10 +98,8 @@ class KinematicModel : public QObject {
 		void runningChanged(bool run);
 
 	private:
-		double _x = 0;
 		double _minimumX = -1e6;
 		double _maximumX = 1e6;
-		double _y = 0;
 		// NOTE: use very large values because no screen has that many pixels.
 		double _minimumY = -1e6;
 		double _maximumY = 1e6;

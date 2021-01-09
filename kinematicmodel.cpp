@@ -2,13 +2,11 @@
 
 KinematicModel::KinematicModel(QObject *parent) :
     QObject(parent) {
-
 }
 
 KinematicModel::KinematicModel(double vX, double vY, QObject *parent) :
     QObject(parent),
     _velocityX(vX), _velocityY(vY) {
-
 }
 
 KinematicModel::KinematicModel(double vX, double vY,
@@ -17,19 +15,6 @@ KinematicModel::KinematicModel(double vX, double vY,
     QObject(parent),
     _velocityX(vX), _velocityY(vY),
     _accelerationX(aX), _accelerationY(aY) {
-
-}
-
-double KinematicModel::x() const {
-	return _x;
-}
-
-void KinematicModel::setX(const double &x) {
-	if (x == _x)
-		return;
-	qDebug() << x;
-	_x = x;
-	emit xChanged();
 }
 
 double KinematicModel::minimumX() const {
@@ -52,17 +37,6 @@ void KinematicModel::setMaximumX(double maximum) {
 		return;
 	_maximumX = maximum;
 	emit maximumXChanged();
-}
-
-double KinematicModel::y() const {
-	return _y;
-}
-
-void KinematicModel::setY(const double &y) {
-	if (y == _y)
-		return;
-	_y = y;
-	emit yChanged();
 }
 
 double KinematicModel::minimumY() const {
@@ -138,34 +112,32 @@ void KinematicModel::timerEvent(QTimerEvent *event) {
 	_lastMSecSinceEpoch = QDateTime::currentMSecsSinceEpoch();
 
 	const double dx = _velocityX*dt_IN_SECS;
-	const double x = _x + dx;
+	const double x = parent()->property("x").toDouble() + dx;
 	if (x > _maximumX) {
-		_x = qMin(x, _maximumX);
+		parent()->setProperty("x", qMin(x, _maximumX));
 		emit maximumXReached();
 	}
 	else if (x < _minimumX) {
-		_x = qMax(x, _minimumX);
+		parent()->setProperty("x", qMax(x, _minimumX));
 		emit minimumXReached();
 	}
 	else {
-		_x = x;
+		parent()->setProperty("x", x);
 	}
-	emit xChanged();
 
 	const double dy = _velocityY*dt_IN_SECS;
-	const double y = _y + dy;
+	const double y = parent()->property("y").toDouble() + dy;
 	if (y > _maximumY) {
-		_y = qMin(y, _maximumY);
+		parent()->setProperty("y", qMin(y, _maximumY));
 		emit maximumYReached();
 	}
 	else if (y < _minimumY) {
-		_y = qMax(y, _minimumY);
+		parent()->setProperty("y", qMax(y, _minimumY));
 		emit minimumYReached();
 	}
 	else {
-		_y = y;
+		parent()->setProperty("y", y);
 	}
-	emit yChanged();
 	_velocityX += _accelerationX*dt_IN_SECS;
 	emit velocityXChanged();
 	_velocityY += _accelerationY*dt_IN_SECS;
