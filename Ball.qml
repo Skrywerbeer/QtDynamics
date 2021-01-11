@@ -7,19 +7,20 @@ Rectangle {
 
     property real ballSize: 0
     property real scaler: 3
-    property bool showVectors: true
+    property bool showVectors: false
 
     width: ballSize
     height: ballSize
     radius: ballSize/2
-    color: "firebrick"
+    rotation: accelerationVector.angle-90
+    gradient: Gradient {
+        GradientStop {position: 0.5; color: "black"}
+        GradientStop {position: 0.7; color: Qt.darker(root.color)}
+        GradientStop {position: 1; color: root.color}
+    }
 
     KinematicModel {
         id: model
-        minimumX: 0
-        maximumX: rootWindow.width - ballSize
-        minimumY: 0
-        maximumY: rootWindow.height - ballSize
         velocityVector: Vector {
             id: velocityVector
             angle: accelerationVector.angle-90
@@ -27,14 +28,10 @@ Rectangle {
         }
         accelerationVector: Vector {
             id: accelerationVector
-            xComponent: (rootWindow.width/2 - root.x)/scaler
-            yComponent: (rootWindow.height/2 - root.y)/scaler
+            xComponent: (rootWindow.width/2 - (root.x + root.width/2))/scaler
+            yComponent: (rootWindow.height/2 - (root.y + root.width/2))/scaler
         }
         running: true
-        onMinimumXReached: velocityVector.xComponent *= -0.9
-        onMaximumXReached: velocityVector.xComponent *= -0.9
-        onMinimumYReached: velocityVector.yComponent *= -0.9
-        onMaximumYReached: velocityVector.yComponent *= -0.9
     }
     VectorArrow {
         anchors.centerIn: parent
