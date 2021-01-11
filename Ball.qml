@@ -6,8 +6,8 @@ Rectangle {
     id: root
 
     property real ballSize: 0
-    property real xVelocity: 0
-    property real yVelocity: 0
+    property real scaler: 3
+    property bool showVectors: true
 
     width: ballSize
     height: ballSize
@@ -22,13 +22,13 @@ Rectangle {
         maximumY: rootWindow.height - ballSize
         velocityVector: Vector {
             id: velocityVector
-            xComponent: xVelocity
-            yComponent: yVelocity
+            angle: accelerationVector.angle-90
+            magnitude: accelerationVector.magnitude
         }
         accelerationVector: Vector {
             id: accelerationVector
-            xComponent: (rootWindow.width/2 - root.x)/3
-            yComponent: (rootWindow.height/2 - root.y)/3
+            xComponent: (rootWindow.width/2 - root.x)/scaler
+            yComponent: (rootWindow.height/2 - root.y)/scaler
         }
         running: true
         onMinimumXReached: velocityVector.xComponent *= -0.9
@@ -42,6 +42,7 @@ Rectangle {
         length: 50
         thickness: 4
         color: "steelblue"
+        visible: showVectors
     }
     VectorArrow {
         anchors.centerIn: parent
@@ -49,6 +50,7 @@ Rectangle {
         length: 30
         thickness: 4
         color: "firebrick"
+        visible: showVectors
     }
 
     MouseArea {

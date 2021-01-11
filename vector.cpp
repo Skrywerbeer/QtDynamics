@@ -63,8 +63,9 @@ double Vector::magnitude() const {
 void Vector::setMagnitude(const double &mag) {
 	if (mag == magnitude())
 		return;
-	const double SCALE_FACTOR = mag/magnitude();
-	_vector *= SCALE_FACTOR;
+	const double RADIANS = qDegreesToRadians(angle());
+	_vector.setX(mag*qCos(RADIANS));
+	_vector.setY(mag*qSin(RADIANS));
 	emit changed();
 	emit xComponentChanged();
 	emit yComponentChanged();

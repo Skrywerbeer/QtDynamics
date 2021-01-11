@@ -11,6 +11,7 @@ Window {
     width: 800
     height: 800
     visible: true
+
     color: "black"
     title: qsTr("Pong")
 
@@ -18,18 +19,27 @@ Window {
         id: ballOrange
         color: "orange"
         x: 100
-        y: 100
+        y: 400
         ballSize: 32
-        xVelocity: 100
+        scaler: 3
     }
     Ball {
         id: ballGreen
-        x: 300
-        y: 300
+        x: 250
+        y: 250
         color: "lawngreen"
         ballSize: 24
-        xVelocity: -100
-        yVelocity: 50
+        scaler: 2.3
+        showVectors: ballOrange.showVectors
+    }
+    Ball {
+        id: ballBlue
+        x: 400
+        y: 500
+        color: "cornflowerblue"
+        ballSize: 12
+        scaler: 1
+        showVectors: ballOrange.showVectors
     }
     Rectangle {
         id: sun
@@ -46,7 +56,6 @@ Window {
             GradientStop {position: 1; color: "white"}
         }
     }
-
     Timer {
         interval: 50
         repeat: true
@@ -54,9 +63,9 @@ Window {
         onTriggered: {
             emitter.emit(ballGreen)
             emitter.emit(ballOrange)
+            emitter.emit(ballBlue)
         }
     }
-
     ParticleSystem {
         id: partSys
     }
@@ -83,5 +92,10 @@ Window {
             color: "white"
         }
     }
-
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            ballOrange.showVectors = ! ballOrange.showVectors
+        }
+    }
 }
