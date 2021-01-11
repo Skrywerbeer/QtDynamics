@@ -6,19 +6,6 @@ KinematicModel::KinematicModel(QObject *parent) :
 
 }
 
-//KinematicModel::KinematicModel(double vX, double vY, QObject *parent) :
-//    QObject(parent),
-//    _velocityX(vX), _velocityY(vY) {
-//}
-
-//KinematicModel::KinematicModel(double vX, double vY,
-//                               double aX, double aY,
-//                               QObject *parent) :
-//    QObject(parent),
-//    _velocityX(vX), _velocityY(vY),
-//    _accelerationX(aX), _accelerationY(aY) {
-//}n
-
 QQuickItem *KinematicModel::parentItem() const {
 	return qobject_cast<QQuickItem *>(parent());
 }
@@ -88,50 +75,6 @@ void KinematicModel::setAccelerationVector(Vector *vector) {
 	_accelerationVector = vector;
 	emit accelerationVectorChanged();
 }
-
-//double KinematicModel::velocityX() const {
-//	return _velocityX;
-//}
-
-//void KinematicModel::setVelocityX(const double &velocity) {
-//	if (velocity == _velocityX)
-//		return;
-//	_velocityX = velocity;
-//	emit velocityXChanged();
-//}
-
-//double KinematicModel::velocityY() const {
-//	return _velocityY;
-//}
-
-//void KinematicModel::setVelocityY(const double &velocity) {
-//	if (velocity == _velocityY)
-//		return;
-//	_velocityY = velocity;
-//	emit velocityYChanged();
-//}
-
-//double KinematicModel::accelerationX() const {
-//	return _accelerationX;
-//}
-
-//void KinematicModel::setAccelerationX(const double &acceleration) {
-//	if (acceleration == _accelerationX)
-//		return;
-//	_accelerationX = acceleration;
-//	emit accelerationXChanged();
-//}
-
-//double KinematicModel::accelerationY() const {
-//	return _accelerationY;
-//}
-
-//void KinematicModel::setAccelerationY(const double &acceleration) {
-//	if (acceleration == _accelerationY)
-//		return;
-//	_accelerationY = acceleration;
-//	emit accelerationYChanged();
-//}
 
 void KinematicModel::timerEvent(QTimerEvent *event) {
 	if (!_running || _velocityVector == nullptr) {

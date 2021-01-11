@@ -18,10 +18,8 @@ Rectangle {
         id: model
         minimumX: 0
         maximumX: rootWindow.width - ballSize
-//        maximumX: parent.parent.width - ballSize
         minimumY: 0
         maximumY: rootWindow.height - ballSize
-//        maximumY: parent.parent.height - ballSize
         velocityVector: Vector {
             id: velocityVector
             xComponent: xVelocity

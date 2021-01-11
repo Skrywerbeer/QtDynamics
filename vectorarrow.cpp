@@ -38,7 +38,6 @@ bool VectorArrow::proportional() const {
 }
 
 void VectorArrow::setProportional(bool on) {
-
 	if (on == _proportional)
 		return;
 	_proportional = on;
@@ -78,13 +77,10 @@ QSGNode *VectorArrow::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *) {
 		geometry->setLineWidth(_thickness);
 		auto vertices = geometry->vertexDataAsPoint2D();
 		vertices[0].set(0, 0);
-		if (_proportional) {
+		if (_proportional)
 			vertices[1] << _target->toPoint();
-		}
-		else {
+		else
 			vertices[1] << _target->normalized()*_length;
-		}
-
 		QSGFlatColorMaterial *material = new QSGFlatColorMaterial;
 		material->setColor(_color);
 
@@ -98,12 +94,11 @@ QSGNode *VectorArrow::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *) {
 		node = static_cast<QSGGeometryNode *>(oldNode);
 		QSGGeometry *geometry = node->geometry();
 		auto vertices = geometry->vertexDataAsPoint2D();
-		if (_proportional) {
+		if (_proportional)
 			vertices[1] << (_target->toPoint());
-		}
-		else {
+		else
 			vertices[1] << _target->normalized()*_length;
-		}
+
 	}
 	node->markDirty(QSGNode::DirtyGeometry);
 	node->markDirty(QSGNode::DirtyMaterial);
@@ -123,4 +118,3 @@ void VectorArrow::connectTargetSignals() {
 	connect(_target, &Vector::changed,
 	           this, &QQuickItem::update);
 }
-
