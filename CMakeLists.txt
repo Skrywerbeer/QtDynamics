@@ -30,6 +30,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
 set(PROJECT_SOURCES
         main.cpp
 		kinematicmodel.cpp kinematicmodel.h
+		vector.cpp vector.h
         qml.qrc
 )
 
