@@ -144,31 +144,31 @@ void KinematicModel::timerEvent(QTimerEvent *event) {
 	_lastMSecSinceEpoch = QDateTime::currentMSecsSinceEpoch();
 
 	const double dx = _velocityVector->xComponent()*dt_IN_SECS;
-	const double x = parent()->property("x").toDouble() + dx;
+	const double x = parentItem()->x() + dx;
 	if (x > _maximumX) {
-		parent()->setProperty("x", qMin(x, _maximumX));
+		parentItem()->setX(qMin(x, _maximumX));
 		emit maximumXReached();
 	}
 	else if (x < _minimumX) {
-		parent()->setProperty("x", qMax(x, _minimumX));
+		parentItem()->setX(qMax(x, _minimumX));
 		emit minimumXReached();
 	}
 	else {
-		parent()->setProperty("x", x);
+		parentItem()->setX(x);
 	}
 
 	const double dy = _velocityVector->yComponent()*dt_IN_SECS;
-	const double y = parent()->property("y").toDouble() + dy;
+	const double y = parentItem()->y() + dy;
 	if (y > _maximumY) {
-		parent()->setProperty("y", qMin(y, _maximumY));
+		parentItem()->setY(qMin(y, _maximumY));
 		emit maximumYReached();
 	}
 	else if (y < _minimumY) {
-		parent()->setProperty("y", qMax(y, _minimumY));
+		parentItem()->setY(qMax(y, _minimumY));
 		emit minimumYReached();
 	}
 	else {
-		parent()->setProperty("y", y);
+		parentItem()->setY(y);
 	}
 	if (_accelerationVector == nullptr)
 		return;

@@ -20,7 +20,11 @@ Rectangle {
         minimumY: 0
         maximumY: rootWindow.height - ballSize
 //        maximumY: parent.parent.height - ballSize
-        velocityVector: Vector {id: vec; xComponent: 200; yComponent: 0}
+        velocityVector: Vector {
+            id: vec;
+            xComponent: 100;
+            yComponent: 0
+        }
         accelerationVector: Vector {
             xComponent: (rootWindow.width/2 - root.x)/3
             yComponent: (rootWindow.height/2 - root.y)/3
