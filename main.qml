@@ -1,6 +1,7 @@
-import QtQuick 2.15
-import QtQuick.Window 2.15
+import QtQuick
+import QtQuick.Window
 import QtQuick.Particles
+import QtQuick.Shapes
 
 import Models 1.0
 
@@ -36,7 +37,14 @@ Window {
         width: 48
         height: 48
         radius: 24
-        color: "yellow"
+        gradient: RadialGradient {
+            centerRadius: 100
+            centerX: 50; centerY: 50
+            focalX: centerX; focalY: centerY
+            GradientStop {position: 0; color: Qt.lighter("yellow")}
+            GradientStop {position: 0.6; color: "yellow"}
+            GradientStop {position: 1; color: "white"}
+        }
     }
 
     Timer {
