@@ -7,8 +7,6 @@ Vector::Vector(QObject *parent) : QObject(parent) {
 Vector::Vector(double x, double y, QObject *parent) :
     QObject(parent),
     _vector(x, y) {
-//    _xComponent(x), _yComponent(y) {
-
 }
 
 double Vector::xComponent() const {
@@ -19,6 +17,7 @@ void Vector::setXComponent(const double &value) {
 	if (value == _vector.x())
 		return;
 	_vector.setX(value);
+	emit changed();
 	emit xComponentChanged();
 	emit magnitudeChanged();
 	emit angleChanged();
@@ -32,6 +31,7 @@ void Vector::setYComponent(const double &value) {
 	if (value == _vector.y())
 		return;
 	_vector.setY(value);
+	emit changed();
 	emit yComponentChanged();
 	emit magnitudeChanged();
 	emit angleChanged();
@@ -48,6 +48,7 @@ void Vector::setAngle(const double &degrees) {
 	const double MAG = magnitude();
 	_vector.setX(MAG*qCos(RADIANS));
 	_vector.setY(MAG*qSin(RADIANS));
+	emit changed();
 	emit xComponentChanged();
 	emit yComponentChanged();
 	emit angleChanged();
@@ -64,6 +65,7 @@ void Vector::setMagnitude(const double &mag) {
 		return;
 	const double SCALE_FACTOR = mag/magnitude();
 	_vector *= SCALE_FACTOR;
+	emit changed();
 	emit xComponentChanged();
 	emit yComponentChanged();
 	emit magnitudeChanged();
@@ -79,6 +81,7 @@ QPointF Vector::toPoint() const {
 
 void Vector::operator+=(const QPointF &vec) {
 	_vector += vec;
+	emit changed();
 	emit xComponentChanged();
 	emit yComponentChanged();
 	emit magnitudeChanged();
@@ -87,6 +90,7 @@ void Vector::operator+=(const QPointF &vec) {
 
 void Vector::operator-=(const QPointF &vec) {
 	_vector -= vec;
+	emit changed();
 	emit xComponentChanged();
 	emit yComponentChanged();
 	emit magnitudeChanged();

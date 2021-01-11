@@ -50,6 +50,7 @@ class Vector : public QObject {
 		static void registerType();
 
 	signals:
+		void changed();
 		void xComponentChanged();
 		void yComponentChanged();
 		void angleChanged();
