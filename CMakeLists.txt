@@ -31,6 +31,7 @@ set(PROJECT_SOURCES
         main.cpp
 		kinematicmodel.cpp kinematicmodel.h
 		vector.cpp vector.h
+		vectorarrow.cpp vectorarrow.h
         qml.qrc
 )
 

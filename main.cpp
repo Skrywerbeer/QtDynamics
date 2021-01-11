@@ -3,10 +3,12 @@
 
 #include "kinematicmodel.h"
 #include "vector.h"
+#include "vectorarrow.h"
 
 int main(int argc, char *argv[]) {
 	KinematicModel::registerType();
 	Vector::registerType();
+	VectorArrow::registerType();
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif

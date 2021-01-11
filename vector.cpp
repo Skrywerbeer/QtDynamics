@@ -79,6 +79,10 @@ QPointF Vector::toPoint() const {
 	return _vector;
 }
 
+QPointF Vector::normalized() const {
+	return _vector/qSqrt(QPointF::dotProduct(_vector, _vector));
+}
+
 void Vector::operator+=(const QPointF &vec) {
 	_vector += vec;
 	emit changed();
