@@ -5,7 +5,7 @@ import QtQuick.Particles
 import Models 1.0
 
 Window {
-    id: root
+    id: rootWindow
 
     width: 400
     height: 400
@@ -16,7 +16,7 @@ Window {
     Ball {
         id: ball
         color: "orange"
-        x: 100
+        x: 200
         y: 100
         ballSize: 32
     }
@@ -40,10 +40,12 @@ Window {
         system: partSys
         emitRate: 10
         lifeSpan: 500
+        size: 8
+        endSize: 16
     }
     ItemParticle {
         system: partSys
-        fade: false
+        fade: true
         delegate: Rectangle {
             width: 4
             height: 4

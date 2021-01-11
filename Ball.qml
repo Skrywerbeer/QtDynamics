@@ -15,9 +15,11 @@ Rectangle {
     KinematicModel {
         id: model
         minimumX: 0
-        maximumX: root.parent.width - ballSize
+        maximumX: rootWindow.width - ballSize
+//        maximumX: parent.parent.width - ballSize
         minimumY: 0
-        maximumY: root.parent.height - ballSize
+        maximumY: rootWindow.height - ballSize
+//        maximumY: parent.parent.height - ballSize
         velocityX: 100
         accelerationY: 500
         running: true
@@ -25,5 +27,13 @@ Rectangle {
         onMaximumXReached: velocityX *= -0.9
         onMinimumYReached: velocityY *= -0.9
         onMaximumYReached: velocityY *= -0.9
+    }
+    MouseArea {
+        anchors.fill: root
+//        onClicked: model.running = true
+//        onClicked: {
+//            root.y = 100
+//            root.x = 100
+//        }
     }
 }

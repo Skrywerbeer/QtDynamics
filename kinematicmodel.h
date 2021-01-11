@@ -2,13 +2,16 @@
 #define KINEMATICMODEL_H
 
 #include <QObject>
+#include <QQuickItem>
 #include <QQmlEngine>
 #include <QPropertyAnimation>
 #include <QDateTime>
+#include <QTimerEvent>
 
 class KinematicModel : public QObject {
 		Q_OBJECT
-
+		Q_PROPERTY(QQuickItem *parent
+		           READ parentItem)
 		Q_PROPERTY(double minimumX \
 		           READ minimumX \
 		           WRITE setMinimumX \
@@ -52,6 +55,8 @@ class KinematicModel : public QObject {
 		KinematicModel(double vX, double vY,
 		               double aX, double aY,
 		               QObject *parent = nullptr);
+
+		QQuickItem *parentItem() const;
 
 		double minimumX() const;
 		void setMinimumX(double minimum);

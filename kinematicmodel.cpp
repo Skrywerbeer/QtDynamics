@@ -2,6 +2,7 @@
 
 KinematicModel::KinematicModel(QObject *parent) :
     QObject(parent) {
+
 }
 
 KinematicModel::KinematicModel(double vX, double vY, QObject *parent) :
@@ -15,6 +16,10 @@ KinematicModel::KinematicModel(double vX, double vY,
     QObject(parent),
     _velocityX(vX), _velocityY(vY),
     _accelerationX(aX), _accelerationY(aY) {
+}
+
+QQuickItem *KinematicModel::parentItem() const {
+	return qobject_cast<QQuickItem *>(parent());
 }
 
 double KinematicModel::minimumX() const {
@@ -106,6 +111,10 @@ void KinematicModel::setAccelerationY(const double &acceleration) {
 }
 
 void KinematicModel::timerEvent(QTimerEvent *event) {
+	if (!_running) {
+		event->ignore();
+		return;
+	}
 	Q_UNUSED(event);
 	const qint64 dt = QDateTime::currentMSecsSinceEpoch() - _lastMSecSinceEpoch;
 	const double dt_IN_SECS = static_cast<double>(dt)/1000;
@@ -152,11 +161,13 @@ void KinematicModel::setRunning(bool running) {
 	if (running == _running)
 		return;
 	_running = running;
-	if (running)
-//		_timerID = startTimer(_tickInterval);//, Qt::PreciseTimer);
+	if (running) {
+		_lastMSecSinceEpoch = QDateTime::currentMSecsSinceEpoch();
 		_timerID = startTimer(0);
-	else
+	}
+	else {
 		killTimer(_timerID);
+	}
 	emit runningChanged(running);
 }
 
