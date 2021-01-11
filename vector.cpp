@@ -4,34 +4,41 @@ Vector::Vector(QObject *parent) : QObject(parent) {
 
 }
 
+Vector::Vector(double x, double y, QObject *parent) :
+    QObject(parent),
+    _vector(x, y) {
+//    _xComponent(x), _yComponent(y) {
+
+}
+
 double Vector::xComponent() const {
-	return _xComponent;
+	return _vector.x();
 }
 
 void Vector::setXComponent(const double &value) {
-	if (value == _xComponent)
+	if (value == _vector.x())
 		return;
-	_xComponent = value;
+	_vector.setX(value);
 	emit xComponentChanged();
 	emit magnitudeChanged();
 	emit angleChanged();
 }
 
 double Vector::yComponent() const {
-	return _yComponent;
+	return _vector.y();
 }
 
 void Vector::setYComponent(const double &value) {
-	if (value == _yComponent)
+	if (value == _vector.y())
 		return;
-	_yComponent = value;
+	_vector.setY(value);
 	emit yComponentChanged();
 	emit magnitudeChanged();
 	emit angleChanged();
 }
 
 double Vector::angle() const {
-	return qRadiansToDegrees(qAtan2(_yComponent, _xComponent));
+	return qRadiansToDegrees(qAtan2(_vector.y(), _vector.x()));
 }
 
 void Vector::setAngle(const double &degrees) {
@@ -39,16 +46,16 @@ void Vector::setAngle(const double &degrees) {
 		return;
 	const double RADIANS = qDegreesToRadians(degrees);
 	const double MAG = magnitude();
-	_xComponent = MAG*qCos(RADIANS);
-	_yComponent = MAG*qSin(RADIANS);
+	_vector.setX(MAG*qCos(RADIANS));
+	_vector.setY(MAG*qSin(RADIANS));
 	emit xComponentChanged();
 	emit yComponentChanged();
 	emit angleChanged();
 }
 
 double Vector::magnitude() const {
-	const double xSquared = _xComponent*_xComponent;
-	const double ySquared = _yComponent*_yComponent;
+	const double xSquared = _vector.x() * _vector.x();
+	const double ySquared = _vector.y()*_vector.y();
 	return qSqrt(xSquared + ySquared);
 }
 
@@ -56,11 +63,34 @@ void Vector::setMagnitude(const double &mag) {
 	if (mag == magnitude())
 		return;
 	const double SCALE_FACTOR = mag/magnitude();
-	_xComponent *= SCALE_FACTOR;
-	_yComponent *= SCALE_FACTOR;
+	_vector *= SCALE_FACTOR;
 	emit xComponentChanged();
 	emit yComponentChanged();
 	emit magnitudeChanged();
+}
+
+QPointF &Vector::vector() {
+	return _vector;
+}
+
+QPointF Vector::toPoint() const {
+	return _vector;
+}
+
+void Vector::operator+=(const QPointF &vec) {
+	_vector += vec;
+	emit xComponentChanged();
+	emit yComponentChanged();
+	emit magnitudeChanged();
+	emit angleChanged();
+}
+
+void Vector::operator-=(const QPointF &vec) {
+	_vector -= vec;
+	emit xComponentChanged();
+	emit yComponentChanged();
+	emit magnitudeChanged();
+	emit angleChanged();
 }
 
 void Vector::registerType() {

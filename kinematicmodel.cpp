@@ -170,12 +170,8 @@ void KinematicModel::timerEvent(QTimerEvent *event) {
 	else {
 		parentItem()->setY(y);
 	}
-	if (_accelerationVector == nullptr)
-		return;
-	const double dv_x = _accelerationVector->xComponent()*dt_IN_SECS;
-	_velocityVector->setXComponent(_velocityVector->xComponent() + dv_x);
-	const double dv_y = _accelerationVector->yComponent()*dt_IN_SECS;
-	_velocityVector->setYComponent(_velocityVector->yComponent() + dv_y);
+	if (_accelerationVector != nullptr)
+		*_velocityVector += _accelerationVector->toPoint()*dt_IN_SECS;
 }
 
 bool KinematicModel::running() const {

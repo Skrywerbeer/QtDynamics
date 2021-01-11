@@ -6,6 +6,8 @@ Rectangle {
     id: root
 
     property real ballSize: 0
+    property real xVelocity: 0
+    property real yVelocity: 0
 
     width: ballSize
     height: ballSize
@@ -21,9 +23,8 @@ Rectangle {
         maximumY: rootWindow.height - ballSize
 //        maximumY: parent.parent.height - ballSize
         velocityVector: Vector {
-            id: vec;
-            xComponent: 100;
-            yComponent: 0
+            xComponent: xVelocity
+            yComponent: yVelocity
         }
         accelerationVector: Vector {
             xComponent: (rootWindow.width/2 - root.x)/3

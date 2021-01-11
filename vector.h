@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QQmlEngine>
+#include <QPointF>
 
 class Vector : public QObject {
 		Q_OBJECT
@@ -26,6 +27,7 @@ class Vector : public QObject {
 		           STORED false)
 	public:
 		explicit Vector(QObject *parent = nullptr);
+		Vector(double x, double y, QObject *parent = nullptr);
 
 		double xComponent() const;
 		void setXComponent(const double &value);
@@ -39,6 +41,12 @@ class Vector : public QObject {
 		double magnitude() const;
 		void setMagnitude(const double &magnitude);
 
+		QPointF &vector();
+		QPointF toPoint() const;
+
+		void operator+=(const QPointF &vec);
+		void operator-=(const QPointF &vec);
+
 		static void registerType();
 
 	signals:
@@ -48,8 +56,7 @@ class Vector : public QObject {
 		void magnitudeChanged();
 
 	private:
-		double _xComponent;
-		double _yComponent;
+		QPointF _vector;
 };
 
 #endif // VECTOR_H

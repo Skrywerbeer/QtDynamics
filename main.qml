@@ -14,17 +14,39 @@ Window {
     title: qsTr("Pong")
 
     Ball {
-        id: ball
+        id: ballOrange
         color: "orange"
-        x: 200
+        x: 100
         y: 100
         ballSize: 32
+        xVelocity: 100
     }
+    Ball {
+        id: ballGreen
+        x: 300
+        y: 300
+        color: "lawngreen"
+        ballSize: 24
+        xVelocity: -100
+        yVelocity: 50
+    }
+    Rectangle {
+        id: sun
+        anchors.centerIn: parent
+        width: 48
+        height: 48
+        radius: 24
+        color: "yellow"
+    }
+
     Timer {
         interval: 50
         repeat: true
         running: true
-        onTriggered: emitter.emit(ball)
+        onTriggered: {
+            emitter.emit(ballGreen)
+            emitter.emit(ballOrange)
+        }
     }
 
     ParticleSystem {
