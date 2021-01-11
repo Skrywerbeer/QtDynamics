@@ -7,8 +7,8 @@ import Models 1.0
 Window {
     id: rootWindow
 
-    width: 400
-    height: 400
+    width: 800
+    height: 800
     visible: true
     color: "black"
     title: qsTr("Pong")
@@ -39,7 +39,7 @@ Window {
         enabled: false
         system: partSys
         emitRate: 10
-        lifeSpan: 500
+        lifeSpan: 5000
         size: 8
         endSize: 16
     }

@@ -17,6 +17,10 @@ void Vector::setXComponent(const double &value) {
 	emit angleChanged();
 }
 
+double Vector::yComponent() const {
+	return _yComponent;
+}
+
 void Vector::setYComponent(const double &value) {
 	if (value == _yComponent)
 		return;

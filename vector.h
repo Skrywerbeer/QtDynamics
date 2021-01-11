@@ -20,7 +20,7 @@ class Vector : public QObject {
 		           NOTIFY angleChanged
 		           STORED false)
 		Q_PROPERTY(double magnitude \
-		           READ magnitudeChanged \
+		           READ magnitude \
 		           WRITE setMagnitude \
 		           NOTIFY magnitudeChanged
 		           STORED false)

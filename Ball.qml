@@ -20,20 +20,19 @@ Rectangle {
         minimumY: 0
         maximumY: rootWindow.height - ballSize
 //        maximumY: parent.parent.height - ballSize
-        velocityX: 100
-        accelerationY: 500
+        velocityVector: Vector {id: vec; xComponent: 200; yComponent: 0}
+        accelerationVector: Vector {
+            xComponent: (rootWindow.width/2 - root.x)/3
+            yComponent: (rootWindow.height/2 - root.y)/3
+        }
         running: true
-        onMinimumXReached: velocityX *= -0.9
-        onMaximumXReached: velocityX *= -0.9
-        onMinimumYReached: velocityY *= -0.9
-        onMaximumYReached: velocityY *= -0.9
+        onMinimumXReached: velocityVector.xComponent *= -0.9
+        onMaximumXReached: velocityVector.xComponent *= -0.9
+        onMinimumYReached: velocityVector.yComponent *= -0.9
+        onMaximumYReached: velocityVector.yComponent *= -0.9
     }
     MouseArea {
         anchors.fill: root
-//        onClicked: model.running = true
-//        onClicked: {
-//            root.y = 100
-//            root.x = 100
-//        }
+        onClicked: model.velocityVector.yComponent = 300
     }
 }

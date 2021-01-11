@@ -1,22 +1,23 @@
 #include "kinematicmodel.h"
+#include "vector.h"
 
 KinematicModel::KinematicModel(QObject *parent) :
     QObject(parent) {
 
 }
 
-KinematicModel::KinematicModel(double vX, double vY, QObject *parent) :
-    QObject(parent),
-    _velocityX(vX), _velocityY(vY) {
-}
+//KinematicModel::KinematicModel(double vX, double vY, QObject *parent) :
+//    QObject(parent),
+//    _velocityX(vX), _velocityY(vY) {
+//}
 
-KinematicModel::KinematicModel(double vX, double vY,
-                               double aX, double aY,
-                               QObject *parent) :
-    QObject(parent),
-    _velocityX(vX), _velocityY(vY),
-    _accelerationX(aX), _accelerationY(aY) {
-}
+//KinematicModel::KinematicModel(double vX, double vY,
+//                               double aX, double aY,
+//                               QObject *parent) :
+//    QObject(parent),
+//    _velocityX(vX), _velocityY(vY),
+//    _accelerationX(aX), _accelerationY(aY) {
+//}n
 
 QQuickItem *KinematicModel::parentItem() const {
 	return qobject_cast<QQuickItem *>(parent());
@@ -66,52 +67,74 @@ void KinematicModel::setMaximumY(double maximum) {
 	emit maximumYChanged();
 }
 
-double KinematicModel::velocityX() const {
-	return _velocityX;
+Vector *KinematicModel::velocityVector() const {
+	return _velocityVector;
 }
 
-void KinematicModel::setVelocityX(const double &velocity) {
-	if (velocity == _velocityX)
+void KinematicModel::setVelocityVector(Vector *vector) {
+	if (vector == _velocityVector)
 		return;
-	_velocityX = velocity;
-	emit velocityXChanged();
+	_velocityVector = vector;
+	emit velocityVectorChanged();
 }
 
-double KinematicModel::velocityY() const {
-	return _velocityY;
+Vector *KinematicModel::accelerationVector() const {
+	return _accelerationVector;
 }
 
-void KinematicModel::setVelocityY(const double &velocity) {
-	if (velocity == _velocityY)
+void KinematicModel::setAccelerationVector(Vector *vector) {
+	if (vector == _accelerationVector)
 		return;
-	_velocityY = velocity;
-	emit velocityYChanged();
+	_accelerationVector = vector;
+	emit accelerationVectorChanged();
 }
 
-double KinematicModel::accelerationX() const {
-	return _accelerationX;
-}
+//double KinematicModel::velocityX() const {
+//	return _velocityX;
+//}
 
-void KinematicModel::setAccelerationX(const double &acceleration) {
-	if (acceleration == _accelerationX)
-		return;
-	_accelerationX = acceleration;
-	emit accelerationXChanged();
-}
+//void KinematicModel::setVelocityX(const double &velocity) {
+//	if (velocity == _velocityX)
+//		return;
+//	_velocityX = velocity;
+//	emit velocityXChanged();
+//}
 
-double KinematicModel::accelerationY() const {
-	return _accelerationY;
-}
+//double KinematicModel::velocityY() const {
+//	return _velocityY;
+//}
 
-void KinematicModel::setAccelerationY(const double &acceleration) {
-	if (acceleration == _accelerationY)
-		return;
-	_accelerationY = acceleration;
-	emit accelerationYChanged();
-}
+//void KinematicModel::setVelocityY(const double &velocity) {
+//	if (velocity == _velocityY)
+//		return;
+//	_velocityY = velocity;
+//	emit velocityYChanged();
+//}
+
+//double KinematicModel::accelerationX() const {
+//	return _accelerationX;
+//}
+
+//void KinematicModel::setAccelerationX(const double &acceleration) {
+//	if (acceleration == _accelerationX)
+//		return;
+//	_accelerationX = acceleration;
+//	emit accelerationXChanged();
+//}
+
+//double KinematicModel::accelerationY() const {
+//	return _accelerationY;
+//}
+
+//void KinematicModel::setAccelerationY(const double &acceleration) {
+//	if (acceleration == _accelerationY)
+//		return;
+//	_accelerationY = acceleration;
+//	emit accelerationYChanged();
+//}
 
 void KinematicModel::timerEvent(QTimerEvent *event) {
-	if (!_running) {
+	if (!_running || _velocityVector == nullptr) {
 		event->ignore();
 		return;
 	}
@@ -120,7 +143,7 @@ void KinematicModel::timerEvent(QTimerEvent *event) {
 	const double dt_IN_SECS = static_cast<double>(dt)/1000;
 	_lastMSecSinceEpoch = QDateTime::currentMSecsSinceEpoch();
 
-	const double dx = _velocityX*dt_IN_SECS;
+	const double dx = _velocityVector->xComponent()*dt_IN_SECS;
 	const double x = parent()->property("x").toDouble() + dx;
 	if (x > _maximumX) {
 		parent()->setProperty("x", qMin(x, _maximumX));
@@ -134,7 +157,7 @@ void KinematicModel::timerEvent(QTimerEvent *event) {
 		parent()->setProperty("x", x);
 	}
 
-	const double dy = _velocityY*dt_IN_SECS;
+	const double dy = _velocityVector->yComponent()*dt_IN_SECS;
 	const double y = parent()->property("y").toDouble() + dy;
 	if (y > _maximumY) {
 		parent()->setProperty("y", qMin(y, _maximumY));
@@ -147,10 +170,12 @@ void KinematicModel::timerEvent(QTimerEvent *event) {
 	else {
 		parent()->setProperty("y", y);
 	}
-	_velocityX += _accelerationX*dt_IN_SECS;
-	emit velocityXChanged();
-	_velocityY += _accelerationY*dt_IN_SECS;
-	emit velocityYChanged();
+	if (_accelerationVector == nullptr)
+		return;
+	const double dv_x = _accelerationVector->xComponent()*dt_IN_SECS;
+	_velocityVector->setXComponent(_velocityVector->xComponent() + dv_x);
+	const double dv_y = _accelerationVector->yComponent()*dt_IN_SECS;
+	_velocityVector->setYComponent(_velocityVector->yComponent() + dv_y);
 }
 
 bool KinematicModel::running() const {

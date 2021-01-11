@@ -8,6 +8,8 @@
 #include <QDateTime>
 #include <QTimerEvent>
 
+#include "vector.h"
+
 class KinematicModel : public QObject {
 		Q_OBJECT
 		Q_PROPERTY(QQuickItem *parent
@@ -28,22 +30,30 @@ class KinematicModel : public QObject {
 		           READ maximumY \
 		           WRITE setMaximumY \
 		           NOTIFY maximumYChanged)
-		Q_PROPERTY(double velocityX \
-		           READ velocityX \
-		           WRITE setVelocityX \
-		           NOTIFY velocityXChanged)
-		Q_PROPERTY(double velocityY \
-		           READ velocityY \
-		           WRITE setVelocityY \
-		           NOTIFY velocityYChanged)
-		Q_PROPERTY(double accelerationX \
-		           READ accelerationX \
-		           WRITE setAccelerationX \
-		           NOTIFY accelerationXChanged)
-		Q_PROPERTY(double accelerationY \
-		           READ accelerationY \
-		           WRITE setAccelerationY \
-		           NOTIFY accelerationYChanged)
+		Q_PROPERTY(Vector *velocityVector \
+		           READ velocityVector \
+		           WRITE setVelocityVector
+		           NOTIFY velocityVectorChanged)
+		Q_PROPERTY(Vector *accelerationVector \
+		           READ accelerationVector \
+		           WRITE setAccelerationVector \
+		           NOTIFY accelerationVectorChanged)
+//		Q_PROPERTY(double velocityX \
+//		           READ velocityX \
+//		           WRITE setVelocityX \
+//		           NOTIFY velocityXChanged)
+//		Q_PROPERTY(double velocityY \
+//		           READ velocityY \
+//		           WRITE setVelocityY \
+//		           NOTIFY velocityYChanged)
+//		Q_PROPERTY(double accelerationX \
+//		           READ accelerationX \
+//		           WRITE setAccelerationX \
+//		           NOTIFY accelerationXChanged)
+//		Q_PROPERTY(double accelerationY \
+//		           READ accelerationY \
+//		           WRITE setAccelerationY \
+//		           NOTIFY accelerationYChanged)
 		Q_PROPERTY(bool running \
 		           READ running \
 		           WRITE setRunning \
@@ -51,10 +61,10 @@ class KinematicModel : public QObject {
 		QML_ELEMENT
 	public:
 		explicit KinematicModel(QObject *parent = nullptr);
-		KinematicModel(double vX, double vY, QObject *parent = nullptr);
-		KinematicModel(double vX, double vY,
-		               double aX, double aY,
-		               QObject *parent = nullptr);
+//		KinematicModel(double vX, double vY, QObject *parent = nullptr);
+//		KinematicModel(double vX, double vY,
+//		               double aX, double aY,
+//		               QObject *parent = nullptr);
 
 		QQuickItem *parentItem() const;
 
@@ -68,17 +78,23 @@ class KinematicModel : public QObject {
 		double maximumY() const;
 		void setMaximumY(double maximum);
 
-		double velocityX() const;
-		void setVelocityX(const double &velocity);
+		Vector *velocityVector() const;
+		void setVelocityVector(Vector *vector);
 
-		double velocityY() const;
-		void setVelocityY(const double &velocity);
+		Vector *accelerationVector() const;
+		void setAccelerationVector(Vector *vector);
 
-		double accelerationX() const;
-		void setAccelerationX(const double &acceleration);
+//		double velocityX() const;
+//		void setVelocityX(const double &velocity);
 
-		double accelerationY() const;
-		void setAccelerationY(const double &acceleration);
+//		double velocityY() const;
+//		void setVelocityY(const double &velocity);
+
+//		double accelerationX() const;
+//		void setAccelerationX(const double &acceleration);
+
+//		double accelerationY() const;
+//		void setAccelerationY(const double &acceleration);
 
 		void timerEvent(QTimerEvent *event) override;
 
@@ -96,10 +112,12 @@ class KinematicModel : public QObject {
 		void minimumYReached();
 		void maximumYChanged();
 		void maximumYReached();
-		void velocityXChanged();
-		void velocityYChanged();
-		void accelerationXChanged();
-		void accelerationYChanged();
+		void velocityVectorChanged();
+		void accelerationVectorChanged();
+//		void velocityXChanged();
+//		void velocityYChanged();
+//		void accelerationXChanged();
+//		void accelerationYChanged();
 		void runningChanged(bool run);
 
 	private:
@@ -108,10 +126,12 @@ class KinematicModel : public QObject {
 		// NOTE: use very large values because no screen has that many pixels.
 		double _minimumY = -1e6;
 		double _maximumY = 1e6;
-		double _velocityX = 0;
-		double _velocityY = 0;
-		double _accelerationX = 0;
-		double _accelerationY = 0;
+		Vector *_velocityVector = nullptr;
+		Vector *_accelerationVector = nullptr;
+//		double _velocityX = 0;
+//		double _velocityY = 0;
+//		double _accelerationX = 0;
+//		double _accelerationY = 0;
 
 		bool _running = false;
 		qint64 _lastMSecSinceEpoch = QDateTime::currentMSecsSinceEpoch();
