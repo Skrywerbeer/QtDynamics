@@ -4,7 +4,7 @@
 VectorArrow::VectorArrow(QQuickItem *parent) :
     QQuickItem(parent) {
 	setFlag(QQuickItem::ItemHasContents);
-	setAntialiasing(true);
+//	setAntialiasing(true);
 }
 
 Vector *VectorArrow::target() const {
@@ -27,10 +27,12 @@ double VectorArrow::length() const {
 }
 
 void VectorArrow::setLength(double length) {
+	QMutexLocker locker(&_mutex);
 	if (length == _length)
 		return;
 	_length = length;
 	emit lengthChanged();
+	m_lengthChanged = true;
 	update();
 }
 
@@ -39,22 +41,26 @@ bool VectorArrow::proportional() const {
 }
 
 void VectorArrow::setProportional(bool on) {
+	QMutexLocker locker(&_mutex);
 	if (on == _proportional)
 		return;
 	_proportional = on;
 	emit proportionalChanged();
+	m_proportionalChanged = true;
 	update();
 }
 
 double VectorArrow::lineWidth() const {
-	return _thickness;
+	return _lineWidth;
 }
 
 void VectorArrow::setLineWidth(double thickness) {
-	if (thickness == _thickness)
+	QMutexLocker locker(&_mutex);
+	if (thickness == _lineWidth)
 		return;
-	_thickness = thickness;
+	_lineWidth = thickness;
 	emit lineWidthChanged();
+	m_lineWidthChanged = true;
 	update();
 }
 
@@ -63,10 +69,12 @@ QColor VectorArrow::color() const {
 }
 
 void VectorArrow::setColor(const QColor &color) {
+	QMutexLocker locker(&_mutex);
 	if (color == _color)
 		return;
 	_color = color;
 	emit colorChanged();
+	m_colorChanged = true;
 	update();
 }
 
@@ -74,16 +82,33 @@ QSGNode *VectorArrow::updatePaintNode(QSGNode *node, UpdatePaintNodeData *) {
 	if (!node) {
 		node = new QSGNode;
 		ArrowNode *arrow = new ArrowNode();
-		arrow->setWidth(_thickness);
+		arrow->setWidth(_lineWidth);
 		arrow->setColor(_color);
 		arrow->setLength(_length);
 		arrow->setProportional(_proportional);
 		arrow->setEndPoint(_target->toPoint());
 		node->appendChildNode(arrow);
 	}
-	else {
-		static_cast<ArrowNode *>(node->childAtIndex(0))->setEndPoint(_target->toPoint());
+	ArrowNode *arrow = static_cast<ArrowNode *>(node->childAtIndex(0));
+	arrow->setEndPoint(_target->toPoint());
+	QMutexLocker locker(&_mutex);
+	if (m_lengthChanged) {
+		m_lengthChanged = false;
+		arrow->setLength(_length);
 	}
+	if (m_proportionalChanged) {
+		m_proportionalChanged = false;
+		arrow->setProportional(_proportional);
+	}
+	if (m_lineWidthChanged) {
+		m_lineWidthChanged = false;
+		arrow->setWidth(_lineWidth);
+	}
+	if (m_colorChanged) {
+		m_colorChanged = false;
+		arrow->setColor(_color);
+	}
+
 	return node;
 }
 

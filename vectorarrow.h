@@ -8,6 +8,9 @@
 #include <QSGGeometryNode>
 #include <QTransform>
 
+#include <QMutex>
+#include <QMutexLocker>
+
 #include "vector.h"
 
 class VectorArrow : public QQuickItem {
@@ -64,10 +67,20 @@ class VectorArrow : public QQuickItem {
 
 	private:
 		Vector *_target = nullptr;
+
 		double _length = 0;
+		bool m_lengthChanged = false;
+
 		bool _proportional = false;
-		double _thickness = 0;
+		bool m_proportionalChanged = false;
+		// TODO: check for maximum line width.
+		double _lineWidth = 0;
+		bool m_lineWidthChanged = false;
+
 		QColor _color = "black";
+		bool m_colorChanged = false;
+
+		QMutex _mutex;
 
 		void disconnectTargetSignals();
 		void connectTargetSignals();
