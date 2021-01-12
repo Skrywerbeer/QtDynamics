@@ -21,12 +21,12 @@ Rectangle {
 
     KinematicModel {
         id: model
-        velocityVector: Vector {
+        velocity: Vector {
             id: velocityVector
             angle: accelerationVector.angle-90
             magnitude: accelerationVector.magnitude
         }
-        accelerationVector: Vector {
+        acceleration: Vector {
             id: accelerationVector
             xComponent: (rootWindow.width/2 - (root.x + root.width/2))/scaler
             yComponent: (rootWindow.height/2 - (root.y + root.width/2))/scaler

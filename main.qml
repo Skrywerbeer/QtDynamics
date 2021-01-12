@@ -21,7 +21,7 @@ Window {
         x: 100
         y: 400
         ballSize: 32
-        scaler: 3
+        scaler: 4
     }
     Ball {
         id: ballGreen
@@ -29,7 +29,7 @@ Window {
         y: 250
         color: "lawngreen"
         ballSize: 24
-        scaler: 2.3
+        scaler: 2
         showVectors: ballOrange.showVectors
     }
     Ball {
