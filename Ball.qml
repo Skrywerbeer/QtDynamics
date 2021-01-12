@@ -7,17 +7,17 @@ Rectangle {
 
     property real ballSize: 0
     property real scaler: 3
-    property bool showVectors: false
+    property bool showVectors: true
 
     width: ballSize
     height: ballSize
     radius: ballSize/2
-    rotation: accelerationVector.angle-90
-    gradient: Gradient {
-        GradientStop {position: 0.5; color: "black"}
-        GradientStop {position: 0.7; color: Qt.darker(root.color)}
-        GradientStop {position: 1; color: root.color}
-    }
+//    rotation: accelerationVector.angle-90
+//    gradient: Gradient {
+//        GradientStop {position: 0.5; color: "black"}
+//        GradientStop {position: 0.7; color: Qt.darker(root.color)}
+//        GradientStop {position: 1; color: root.color}
+//    }
 
     KinematicModel {
         id: model
@@ -37,7 +37,7 @@ Rectangle {
         anchors.centerIn: parent
         target: velocityVector
         length: 50
-        thickness: 4
+        thickness: 10
         color: "steelblue"
         visible: showVectors
     }
@@ -45,7 +45,9 @@ Rectangle {
         anchors.centerIn: parent
         target: accelerationVector
         length: 30
-        thickness: 4
+//        opacity: 0.5
+//        layer.enabled: true
+        thickness: 10
         color: "firebrick"
         visible: showVectors
     }

@@ -25,8 +25,8 @@ Window {
     }
     Ball {
         id: ballGreen
-        x: 250
-        y: 250
+        x: 200 - ballSize/2
+        y: 400 - ballSize/2
         color: "lawngreen"
         ballSize: 24
         scaler: 2
