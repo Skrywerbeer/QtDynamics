@@ -30,14 +30,14 @@ class KinematicModel : public QObject {
 		           READ maximumY \
 		           WRITE setMaximumY \
 		           NOTIFY maximumYChanged)
-		Q_PROPERTY(Vector *velocityVector \
-		           READ velocityVector \
-		           WRITE setVelocityVector
-		           NOTIFY velocityVectorChanged)
-		Q_PROPERTY(Vector *accelerationVector \
-		           READ accelerationVector \
-		           WRITE setAccelerationVector \
-		           NOTIFY accelerationVectorChanged)
+		Q_PROPERTY(Vector *velocity \
+		           READ velocity \
+		           WRITE setVelocity
+		           NOTIFY velocityChanged)
+		Q_PROPERTY(Vector *acceleration \
+		           READ acceleration \
+		           WRITE setAcceleration \
+		           NOTIFY accelerationChanged)
 		Q_PROPERTY(bool running \
 		           READ running \
 		           WRITE setRunning \
@@ -58,11 +58,11 @@ class KinematicModel : public QObject {
 		double maximumY() const;
 		void setMaximumY(double maximum);
 
-		Vector *velocityVector() const;
-		void setVelocityVector(Vector *vector);
+		Vector *velocity() const;
+		void setVelocity(Vector *vector);
 
-		Vector *accelerationVector() const;
-		void setAccelerationVector(Vector *vector);
+		Vector *acceleration() const;
+		void setAcceleration(Vector *vector);
 
 		void timerEvent(QTimerEvent *event) override;
 
@@ -80,8 +80,8 @@ class KinematicModel : public QObject {
 		void minimumYReached();
 		void maximumYChanged();
 		void maximumYReached();
-		void velocityVectorChanged();
-		void accelerationVectorChanged();
+		void velocityChanged();
+		void accelerationChanged();
 		void runningChanged(bool run);
 
 	private:
@@ -90,8 +90,8 @@ class KinematicModel : public QObject {
 		// NOTE: use very large values because no screen has that many pixels.
 		double _minimumY = -1e6;
 		double _maximumY = 1e6;
-		Vector *_velocityVector = nullptr;
-		Vector *_accelerationVector = nullptr;
+		Vector *_velocity = nullptr;
+		Vector *_acceleration = nullptr;
 
 		bool _running = false;
 		qint64 _lastMSecSinceEpoch = QDateTime::currentMSecsSinceEpoch();

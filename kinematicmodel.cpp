@@ -54,30 +54,30 @@ void KinematicModel::setMaximumY(double maximum) {
 	emit maximumYChanged();
 }
 
-Vector *KinematicModel::velocityVector() const {
-	return _velocityVector;
+Vector *KinematicModel::velocity() const {
+	return _velocity;
 }
 
-void KinematicModel::setVelocityVector(Vector *vector) {
-	if (vector == _velocityVector)
+void KinematicModel::setVelocity(Vector *vector) {
+	if (vector == _velocity)
 		return;
-	_velocityVector = vector;
-	emit velocityVectorChanged();
+	_velocity = vector;
+	emit velocityChanged();
 }
 
-Vector *KinematicModel::accelerationVector() const {
-	return _accelerationVector;
+Vector *KinematicModel::acceleration() const {
+	return _acceleration;
 }
 
-void KinematicModel::setAccelerationVector(Vector *vector) {
-	if (vector == _accelerationVector)
+void KinematicModel::setAcceleration(Vector *vector) {
+	if (vector == _acceleration)
 		return;
-	_accelerationVector = vector;
-	emit accelerationVectorChanged();
+	_acceleration = vector;
+	emit accelerationChanged();
 }
 
 void KinematicModel::timerEvent(QTimerEvent *event) {
-	if (!_running || _velocityVector == nullptr) {
+	if (!_running || _velocity == nullptr) {
 		event->ignore();
 		return;
 	}
@@ -86,7 +86,7 @@ void KinematicModel::timerEvent(QTimerEvent *event) {
 	const double dt_IN_SECS = static_cast<double>(dt)/1000;
 	_lastMSecSinceEpoch = QDateTime::currentMSecsSinceEpoch();
 
-	const double dx = _velocityVector->xComponent()*dt_IN_SECS;
+	const double dx = _velocity->xComponent()*dt_IN_SECS;
 	const double x = parentItem()->x() + dx;
 	if (x > _maximumX) {
 		parentItem()->setX(qMin(x, _maximumX));
@@ -100,7 +100,7 @@ void KinematicModel::timerEvent(QTimerEvent *event) {
 		parentItem()->setX(x);
 	}
 
-	const double dy = _velocityVector->yComponent()*dt_IN_SECS;
+	const double dy = _velocity->yComponent()*dt_IN_SECS;
 	const double y = parentItem()->y() + dy;
 	if (y > _maximumY) {
 		parentItem()->setY(qMin(y, _maximumY));
@@ -113,8 +113,8 @@ void KinematicModel::timerEvent(QTimerEvent *event) {
 	else {
 		parentItem()->setY(y);
 	}
-	if (_accelerationVector != nullptr)
-		*_velocityVector += _accelerationVector->toPoint()*dt_IN_SECS;
+	if (_acceleration != nullptr)
+		*_velocity += _acceleration->toPoint()*dt_IN_SECS;
 }
 
 bool KinematicModel::running() const {
