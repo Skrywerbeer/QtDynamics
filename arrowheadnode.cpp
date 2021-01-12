@@ -17,16 +17,18 @@ void ArrowHeadNode::setEndPoint(const QPointF &end) {
 	transform.translate(end.x(), end.y());
 	transform.rotate(qRadiansToDegrees(qAtan2(end.y(), end.x())));
 	auto vertices = geometry()->vertexDataAsPoint2D();
-	const QList<QPointF> points{{_width, 0},
-		                        {-_width, -_width},
-		                        {-_width, _width}};
+	const QPointF points[3]{
+		{_width, 0},
+		{-_width, -_width},
+		{-_width, _width}
+	};
 	for (auto &point : points)
 		vertices++ << transform*point;
 	markDirty(QSGNode::DirtyGeometry);
 }
 
 void ArrowHeadNode::setWidth(double width) {
-	geometry()->setLineWidth(width);
+//	geometry()->setLineWidth(width);
 	_width = width;
 	markDirty(QSGNode::DirtyGeometry);
 }
