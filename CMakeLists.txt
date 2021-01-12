@@ -24,14 +24,27 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #    endif()
 #endif()
 
-find_package(QT NAMES Qt6 COMPONENTS Core Quick REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
+find_package(QT NAMES Qt6 COMPONENTS
+	Core
+	Gui
+	Quick
+	REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
+	Core
+	Gui
+	Quick
+	REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
 		kinematicmodel.cpp kinematicmodel.h
 		vector.cpp vector.h
+
 		vectorarrow.cpp vectorarrow.h
+		arrownode.cpp arrownode.h
+		arrowbodynode.cpp arrowbodynode.h
+		arrowheadnode.cpp arrowheadnode.h
+
         qml.qrc
 )
 

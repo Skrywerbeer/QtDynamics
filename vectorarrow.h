@@ -6,6 +6,7 @@
 #include <QSGFlatColorMaterial>
 #include <QSGGeometry>
 #include <QSGGeometryNode>
+#include <QTransform>
 
 #include "vector.h"
 
@@ -50,7 +51,7 @@ class VectorArrow : public QQuickItem {
 		QColor color() const;
 		void setColor(const QColor &color);
 
-		QSGNode *updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *);
+		QSGNode *updatePaintNode(QSGNode *node, UpdatePaintNodeData *);
 
 		static void registerType();
 
@@ -71,5 +72,9 @@ class VectorArrow : public QQuickItem {
 		void disconnectTargetSignals();
 		void connectTargetSignals();
 };
+
+inline void operator<<(QSGGeometry::Point2D &point2d, const QPointF &point) {
+	point2d.set(point.x(), point.y());
+}
 
 #endif // VECTORARROW_H

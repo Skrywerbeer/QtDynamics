@@ -1,4 +1,5 @@
 #include "vectorarrow.h"
+#include "arrownode.h"
 
 VectorArrow::VectorArrow(QQuickItem *parent) :
     QQuickItem(parent) {
@@ -69,39 +70,20 @@ void VectorArrow::setColor(const QColor &color) {
 	update();
 }
 
-QSGNode *VectorArrow::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *) {
-	QSGGeometryNode *node = nullptr;
-	if (!oldNode) {
-		QSGGeometry *geometry = new QSGGeometry(QSGGeometry::defaultAttributes_Point2D(), 2);
-		geometry->setDrawingMode(QSGGeometry::DrawLines);
-		geometry->setLineWidth(_thickness);
-		auto vertices = geometry->vertexDataAsPoint2D();
-		vertices[0].set(0, 0);
-		if (_proportional)
-			vertices[1] << _target->toPoint();
-		else
-			vertices[1] << _target->normalized()*_length;
-		QSGFlatColorMaterial *material = new QSGFlatColorMaterial;
-		material->setColor(_color);
-
-		node = new QSGGeometryNode;
-		node->setGeometry(geometry);
-		node->setFlag(QSGNode::OwnsGeometry);
-		node->setMaterial(material);
-		node->setFlag(QSGNode::OwnsMaterial);
+QSGNode *VectorArrow::updatePaintNode(QSGNode *node, UpdatePaintNodeData *) {
+	if (!node) {
+		node = new QSGNode;
+		ArrowNode *arrow = new ArrowNode();
+		arrow->setWidth(_thickness);
+		arrow->setColor(_color);
+		arrow->setLength(_length);
+		arrow->setProportional(_proportional);
+		arrow->setEndPoint(_target->toPoint());
+		node->appendChildNode(arrow);
 	}
 	else {
-		node = static_cast<QSGGeometryNode *>(oldNode);
-		QSGGeometry *geometry = node->geometry();
-		auto vertices = geometry->vertexDataAsPoint2D();
-		if (_proportional)
-			vertices[1] << (_target->toPoint());
-		else
-			vertices[1] << _target->normalized()*_length;
-
+		static_cast<ArrowNode *>(node->childAtIndex(0))->setEndPoint(_target->toPoint());
 	}
-	node->markDirty(QSGNode::DirtyGeometry);
-	node->markDirty(QSGNode::DirtyMaterial);
 	return node;
 }
 
@@ -112,7 +94,7 @@ void VectorArrow::disconnectTargetSignals() {
 
 void VectorArrow::connectTargetSignals() {
 	connect(_target, &Vector::changed,
-	           this, &QQuickItem::update);
+	        this, &QQuickItem::update);
 }
 
 void VectorArrow::registerType() {
