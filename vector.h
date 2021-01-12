@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QQmlEngine>
 #include <QPointF>
-#include <QSGGeometry>
 
 class Vector : public QObject {
 		Q_OBJECT
@@ -62,8 +61,6 @@ class Vector : public QObject {
 		QPointF _vector;
 };
 
-inline void operator<<(QSGGeometry::Point2D &point2d, const QPointF &point) {
-	point2d.set(point.x(), point.y());
-}
+
 
 #endif // VECTOR_H
