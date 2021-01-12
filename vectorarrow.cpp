@@ -46,15 +46,15 @@ void VectorArrow::setProportional(bool on) {
 	update();
 }
 
-double VectorArrow::thickness() const {
+double VectorArrow::lineWidth() const {
 	return _thickness;
 }
 
-void VectorArrow::setThickness(double thickness) {
+void VectorArrow::setLineWidth(double thickness) {
 	if (thickness == _thickness)
 		return;
 	_thickness = thickness;
-	emit thicknessChanged();
+	emit lineWidthChanged();
 	update();
 }
 

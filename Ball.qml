@@ -37,7 +37,8 @@ Rectangle {
         anchors.centerIn: parent
         target: velocityVector
         length: 50
-        thickness: 10
+        lineWidth: 40
+        opacity: 0.5
         color: "steelblue"
         visible: showVectors
     }
@@ -47,7 +48,7 @@ Rectangle {
         length: 30
 //        opacity: 0.5
 //        layer.enabled: true
-        thickness: 10
+        lineWidth: 10
         color: "firebrick"
         visible: showVectors
     }

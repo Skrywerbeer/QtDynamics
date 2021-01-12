@@ -25,10 +25,10 @@ class VectorArrow : public QQuickItem {
 		           READ proportional \
 		           WRITE setProportional \
 		           NOTIFY proportionalChanged)
-		Q_PROPERTY(double thickness \
-		           READ thickness \
-		           WRITE setThickness \
-		           NOTIFY thicknessChanged)
+		Q_PROPERTY(double lineWidth \
+		           READ lineWidth \
+		           WRITE setLineWidth \
+		           NOTIFY lineWidthChanged)
 		Q_PROPERTY(QColor color \
 		           READ color \
 		           WRITE setColor \
@@ -45,8 +45,8 @@ class VectorArrow : public QQuickItem {
 		bool proportional() const;
 		void setProportional(bool on);
 
-		double thickness() const;
-		void setThickness(double thickness);
+		double lineWidth() const;
+		void setLineWidth(double thickness);
 
 		QColor color() const;
 		void setColor(const QColor &color);
@@ -59,7 +59,7 @@ class VectorArrow : public QQuickItem {
 		void targetChanged();
 		void lengthChanged();
 		void proportionalChanged();
-		void thicknessChanged();
+		void lineWidthChanged();
 		void colorChanged();
 
 	private:
