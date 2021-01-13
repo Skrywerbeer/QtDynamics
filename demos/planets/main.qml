@@ -12,33 +12,33 @@ Window {
     visible: true
 
     color: "black"
-    title: qsTr("Pong")
+    title: qsTr("Planets")
 
-    Ball {
-        id: ballOrange
+    Planet {
+        id: planetOrange
         color: "orange"
         x: 100
         y: 400
         ballSize: 32
         scaler: 4
     }
-    Ball {
-        id: ballGreen
+    Planet {
+        id: planetGreen
         x: 200 - ballSize/2
         y: 400 - ballSize/2
         color: "lawngreen"
         ballSize: 24
         scaler: 2
-        showVectors: ballOrange.showVectors
+        showVectors: planetOrange.showVectors
     }
-    Ball {
-        id: ballBlue
+    Planet {
+        id: planetBlue
         x: 400
         y: 500
         color: "cornflowerblue"
         ballSize: 12
         scaler: 1
-        showVectors: ballOrange.showVectors
+        showVectors: planetOrange.showVectors
     }
     Rectangle {
         id: sun
@@ -60,17 +60,19 @@ Window {
         repeat: true
         running: true
         onTriggered: {
-            emitter.emit(ballGreen)
-            emitter.emit(ballOrange)
-            emitter.emit(ballBlue)
+            emitter.emit(planetGreen)
+            emitter.emit(planetOrange)
+            emitter.emit(planetBlue)
         }
     }
     ParticleSystem {
         id: partSys
     }
     Emitter {
-        function emit(ball) {
-            burst(1, ball.x + ball.width/2, ball.y + ball.height/2)
+        function emit(planet) {
+            burst(1,
+                  planet.x + planet.width/2,
+                  planet.y + planet.height/2)
         }
 
         id: emitter
@@ -89,12 +91,6 @@ Window {
             height: 4
             radius: 2
             color: "white"
-        }
-    }
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            ballOrange.showVectors = ! ballOrange.showVectors
         }
     }
 }
