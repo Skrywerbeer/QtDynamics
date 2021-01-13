@@ -45,6 +45,8 @@ set(PROJECT_SOURCES
 		arrowbodynode.cpp arrowbodynode.h
 		arrowheadnode.cpp arrowheadnode.h
 
+		qtdynamicsplugin.cpp qtdynamicsplugin.h
+
         qml.qrc
 		qmldir
 )
@@ -69,3 +71,10 @@ target_compile_definitions(QtDynamics
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(QtDynamics
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
+
+set_target_properties(QtDynamics PROPERTIES
+	QT_QML_MODULE_VERSION 1.0
+	QT_QML_MODULE_URI QtDynamics
+	)
+
+qt6_qml_type_registration(QtDynamics)
