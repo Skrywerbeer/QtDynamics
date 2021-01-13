@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(Pong LANGUAGES CXX)
+project(QtDynamics LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -46,25 +46,26 @@ set(PROJECT_SOURCES
 		arrowheadnode.cpp arrowheadnode.h
 
         qml.qrc
+		qmldir
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(Pong
+	qt_add_executable(QtDynamics
         ${PROJECT_SOURCES}
     )
 else()
     if(ANDROID)
-        add_library(Pong SHARED
+		add_library(QtDynamics SHARED
             ${PROJECT_SOURCES}
         )
     else()
-        add_executable(Pong
+		add_executable(QtDynamics
           ${PROJECT_SOURCES}
         )
     endif()
 endif()
 
-target_compile_definitions(Pong
+target_compile_definitions(QtDynamics
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(Pong
+target_link_libraries(QtDynamics
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
