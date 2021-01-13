@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QQuickItem>
 #include <QQmlEngine>
-#include <QPropertyAnimation>
+#include <QElapsedTimer>
 #include <QDateTime>
 #include <QTimerEvent>
 
@@ -92,7 +92,9 @@ class KinematicModel : public QObject {
 		Vector *_acceleration = nullptr;
 
 		bool _running = false;
-		qint64 _lastMSecSinceEpoch = QDateTime::currentMSecsSinceEpoch();
+
+		QElapsedTimer _clock;
+
 		int _timerID;
 
 		void tickHandler();

@@ -82,10 +82,8 @@ void KinematicModel::timerEvent(QTimerEvent *event) {
 		return;
 	}
 	Q_UNUSED(event);
-	const qint64 dt = QDateTime::currentMSecsSinceEpoch() - _lastMSecSinceEpoch;
+	const qint64 dt = _clock.restart();
 	const double dt_IN_SECS = static_cast<double>(dt)/1000;
-	_lastMSecSinceEpoch = QDateTime::currentMSecsSinceEpoch();
-
 	const double dx = _velocity->xComponent()*dt_IN_SECS;
 	const double x = parentItem()->x() + dx;
 	if (x > _maximumX) {
@@ -126,7 +124,7 @@ void KinematicModel::setRunning(bool running) {
 		return;
 	_running = running;
 	if (running) {
-		_lastMSecSinceEpoch = QDateTime::currentMSecsSinceEpoch();
+		_clock.start();
 		_timerID = startTimer(0);
 	}
 	else {
