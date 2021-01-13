@@ -15,6 +15,7 @@
 
 class VectorArrow : public QQuickItem {
 		Q_OBJECT
+		QML_ELEMENT
 		Q_PROPERTY(Vector *target \
 		           READ target \
 		           WRITE setTarget \
@@ -55,8 +56,6 @@ class VectorArrow : public QQuickItem {
 		void setColor(const QColor &color);
 
 		QSGNode *updatePaintNode(QSGNode *node, UpdatePaintNodeData *);
-
-		static void registerType();
 
 	signals:
 		void targetChanged();

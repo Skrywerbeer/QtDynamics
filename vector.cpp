@@ -101,7 +101,3 @@ void Vector::operator-=(const QPointF &vec) {
 	emit magnitudeChanged();
 	emit angleChanged();
 }
-
-void Vector::registerType() {
-	qmlRegisterType<Vector>("Models", 1, 0, "Vector");
-}

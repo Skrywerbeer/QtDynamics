@@ -121,7 +121,3 @@ void VectorArrow::connectTargetSignals() {
 	connect(_target, &Vector::changed,
 	        this, &QQuickItem::update);
 }
-
-void VectorArrow::registerType() {
-	qmlRegisterType<VectorArrow>("Models", 1, 0, "VectorArrow");
-}

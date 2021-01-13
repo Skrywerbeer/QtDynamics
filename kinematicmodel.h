@@ -12,6 +12,7 @@
 
 class KinematicModel : public QObject {
 		Q_OBJECT
+		QML_ELEMENT
 		Q_PROPERTY(QQuickItem *parent
 		           READ parentItem)
 		Q_PROPERTY(double minimumX \
@@ -42,7 +43,6 @@ class KinematicModel : public QObject {
 		           READ running \
 		           WRITE setRunning \
 		           NOTIFY runningChanged)
-		QML_ELEMENT
 	public:
 		explicit KinematicModel(QObject *parent = nullptr);
 
@@ -68,8 +68,6 @@ class KinematicModel : public QObject {
 
 		bool running() const;
 		void setRunning(bool running);
-
-		static void registerType();
 
 	signals:
 		void minimumXChanged();

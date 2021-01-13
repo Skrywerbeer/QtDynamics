@@ -134,7 +134,3 @@ void KinematicModel::setRunning(bool running) {
 	}
 	emit runningChanged(running);
 }
-
-void KinematicModel::registerType() {
-	qmlRegisterType<KinematicModel>("Models", 1, 0, "KinematicModel");
-}

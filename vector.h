@@ -7,6 +7,7 @@
 
 class Vector : public QObject {
 		Q_OBJECT
+		QML_ELEMENT
 		Q_PROPERTY(double xComponent \
 		           READ xComponent \
 		           WRITE setXComponent \
@@ -47,8 +48,6 @@ class Vector : public QObject {
 
 		void operator+=(const QPointF &vec);
 		void operator-=(const QPointF &vec);
-
-		static void registerType();
 
 	signals:
 		void changed();
