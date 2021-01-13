@@ -35,7 +35,7 @@ set(PROJECT_SOURCES
 		qtdynamicsplugin.cpp qtdynamicsplugin.h
 )
 
-set(BUILD_SHARED_LIBS 1)
+set(BUILD_SHARED_LIBS ON)
 qt6_add_qml_module(qtdynamicsplugin
 	OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/import/QtDynamics"
 	VERSION 1.0
@@ -57,6 +57,6 @@ set_target_properties(qtdynamicsplugin PROPERTIES
 
 qt6_qml_type_registration(qtdynamicsplugin)
 
-#target_compile_definitions(QtDynamics
-#  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+target_compile_definitions(qtdynamicsplugin
+  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 

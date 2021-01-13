@@ -8,8 +8,4 @@ class QtDynamicsPlugin : public QQmlEngineExtensionPlugin {
 		Q_PLUGIN_METADATA(IID QQmlEngineExtensionInterface_iid)
 };
 
-//void qml_register_types_QtDynamics();
-
-//void reg();
-
 #endif // QTDYNAMICSPLUGIN_H
