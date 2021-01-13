@@ -1,6 +1,6 @@
 import QtQuick
 
-import Models
+import QtDynamics
 
 Rectangle {
     id: root
@@ -12,7 +12,12 @@ Rectangle {
     width: ballSize
     height: ballSize
     radius: ballSize/2
-    rotation: accelerationVector.angle-90
+    transform: Rotation {
+        origin {x: root.width/2; y: root.height/2}
+        angle: accelerationVector.angle - 90
+    }
+
+//    rotation: accelerationVector.angle-90
     gradient: Gradient {
         GradientStop {position: 0.5; color: "black"}
         GradientStop {position: 0.7; color: Qt.darker(root.color)}

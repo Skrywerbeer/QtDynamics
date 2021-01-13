@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/qml">
-        <file>main.qml</file>
-        <file>Ball.qml</file>
-        <file>Paddle.qml</file>
-    </qresource>
-</RCC>

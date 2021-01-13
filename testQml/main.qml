@@ -3,7 +3,6 @@ import QtQuick.Window
 import QtQuick.Particles
 import QtQuick.Shapes
 
-import Models
 
 Window {
     id: rootWindow
