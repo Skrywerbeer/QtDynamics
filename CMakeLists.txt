@@ -11,19 +11,6 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# QtCreator supports the following variables for Android, which are identical to qmake Android variables.
-# Check https://doc.qt.io/qt/deployment-android.html for more information.
-# They need to be set before the find_package(...) calls below.
-
-#if(ANDROID)
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-#    if (ANDROID_ABI STREQUAL "armeabi-v7a")
-#        set(ANDROID_EXTRA_LIBS
-#            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libcrypto.so
-#            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libssl.so)
-#    endif()
-#endif()
-
 find_package(QT NAMES Qt6 COMPONENTS
 	Core
 	Gui
@@ -36,8 +23,8 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
 	REQUIRED)
 
 set(PROJECT_SOURCES
-        main.cpp
 		kinematicmodel.cpp kinematicmodel.h
+
 		vector.cpp vector.h
 
 		vectorarrow.cpp vectorarrow.h
@@ -46,35 +33,30 @@ set(PROJECT_SOURCES
 		arrowheadnode.cpp arrowheadnode.h
 
 		qtdynamicsplugin.cpp qtdynamicsplugin.h
-
-        qml.qrc
-		qmldir
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-	qt_add_executable(QtDynamics
-        ${PROJECT_SOURCES}
-    )
-else()
-    if(ANDROID)
-		add_library(QtDynamics SHARED
-            ${PROJECT_SOURCES}
-        )
-    else()
-		add_executable(QtDynamics
-          ${PROJECT_SOURCES}
-        )
-    endif()
-endif()
+set(BUILD_SHARED_LIBS 1)
+qt6_add_qml_module(qtdynamicsplugin
+	OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/import/QtDynamics"
+	VERSION 1.0
+	URI "QtDynamics"
+	INSTALL_LOCATION "${CMAKE_CURRENT_BINARY_DIR}/import/QtDynamics"
+	SOURCES ${PROJECT_SOURCES})
 
-target_compile_definitions(QtDynamics
-  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(QtDynamics
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
+target_link_libraries(qtdynamicsplugin PRIVATE
+	Qt${QT_VERSION_MAJOR}::Core
+	Qt${QT_VERSION_MAJOR}::Gui
+	Qt${QT_VERSION_MAJOR}::Quick)
+target_sources(qtdynamicsplugin PRIVATE ${PROJECT_SOURCES})
 
-set_target_properties(QtDynamics PROPERTIES
+set_target_properties(qtdynamicsplugin PROPERTIES
 	QT_QML_MODULE_VERSION 1.0
 	QT_QML_MODULE_URI QtDynamics
+	QT_QMLTYPES_FILENAME import/QtDynamics/plugins.qmltypes
 	)
 
-qt6_qml_type_registration(QtDynamics)
+qt6_qml_type_registration(qtdynamicsplugin)
+
+#target_compile_definitions(QtDynamics
+#  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+
