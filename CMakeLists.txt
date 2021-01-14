@@ -23,16 +23,17 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
 	REQUIRED)
 
 set(PROJECT_SOURCES
-		kinematicmodel.cpp kinematicmodel.h
+	mechanicsmodel.cpp mechanicsmodel.h
+	kinematicmodel.cpp kinematicmodel.h
 
-		vector.cpp vector.h
+	vector.cpp vector.h
 
-		vectorarrow.cpp vectorarrow.h
-		arrownode.cpp arrownode.h
-		arrowbodynode.cpp arrowbodynode.h
-		arrowheadnode.cpp arrowheadnode.h
+	vectorarrow.cpp vectorarrow.h
+	arrownode.cpp arrownode.h
+	arrowbodynode.cpp arrowbodynode.h
+	arrowheadnode.cpp arrowheadnode.h
 
-		qtdynamicsplugin.cpp qtdynamicsplugin.h
+	qtdynamicsplugin.cpp qtdynamicsplugin.h
 )
 
 set(MODULE_LOCATION "${CMAKE_CURRENT_BINARY_DIR}/imports/QtDynamics")
