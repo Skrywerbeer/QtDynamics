@@ -35,12 +35,14 @@ set(PROJECT_SOURCES
 		qtdynamicsplugin.cpp qtdynamicsplugin.h
 )
 
+set(MODULE_INSTALL_LOCATION "lib/qmlImports/QtDynamics")
+
 set(BUILD_SHARED_LIBS ON)
 qt6_add_qml_module(qtdynamicsplugin
-	OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/import/QtDynamics"
+	OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/imports/QtDynamics"
 	VERSION 1.0
 	URI "QtDynamics"
-	INSTALL_LOCATION "${CMAKE_CURRENT_BINARY_DIR}/import/QtDynamics"
+	INSTALL_LOCATION ${MODULE_INSTALL_LOCATION}
 	SOURCES ${PROJECT_SOURCES})
 
 target_link_libraries(qtdynamicsplugin PRIVATE
@@ -52,7 +54,7 @@ target_sources(qtdynamicsplugin PRIVATE ${PROJECT_SOURCES})
 set_target_properties(qtdynamicsplugin PROPERTIES
 	QT_QML_MODULE_VERSION 1.0
 	QT_QML_MODULE_URI QtDynamics
-	QT_QMLTYPES_FILENAME import/QtDynamics/plugins.qmltypes
+	QT_QMLTYPES_FILENAME imports/QtDynamics/plugins.qmltypes
 	)
 
 qt6_qml_type_registration(qtdynamicsplugin)
@@ -60,3 +62,7 @@ qt6_qml_type_registration(qtdynamicsplugin)
 target_compile_definitions(qtdynamicsplugin
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
+install(TARGETS qtdynamicsplugin
+	RUNTIME DESTINATION ${MODULE_INSTALL_LOCATION}
+	BUNDLE DESTINATION ${MODULE_INSTALL_LOCATION}
+	LIBRARY DESTINATION ${MODULE_INSTALL_LOCATION})
