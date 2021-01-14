@@ -6,8 +6,29 @@ KinematicModel::KinematicModel(QObject *parent) :
 
 }
 
-QQuickItem *KinematicModel::parentItem() const {
-	return qobject_cast<QQuickItem *>(parent());
+QQuickItem *KinematicModel::target() const {
+	return _target;
+}
+
+void KinematicModel::setTarget(QQuickItem *target) {
+	if (target == _target)
+		return;
+	_target = target;
+	emit targetChanged();
+}
+
+void KinematicModel::setTargetX(double x) {
+	if (x > _maximumX) {
+		_target->setX(qMin(x, _maximumX));
+		emit maximumXReached();
+	}
+	else if (x < _minimumX) {
+		_target->setX(qMax(x, _minimumX));
+		emit minimumXReached();
+	}
+	else {
+		_target->setX(x);
+	}
 }
 
 double KinematicModel::minimumX() const {
@@ -30,6 +51,20 @@ void KinematicModel::setMaximumX(double maximum) {
 		return;
 	_maximumX = maximum;
 	emit maximumXChanged();
+}
+
+void KinematicModel::setTargetY(double y) {
+	if (y > _maximumY) {
+		_target->setY(qMin(y, _maximumY));
+		emit maximumYReached();
+	}
+	else if (y < _minimumY) {
+		_target->setY(qMax(y, _minimumY));
+		emit minimumYReached();
+	}
+	else {
+		_target->setY(y);
+	}
 }
 
 double KinematicModel::minimumY() const {
@@ -76,45 +111,6 @@ void KinematicModel::setAcceleration(Vector *vector) {
 	emit accelerationChanged();
 }
 
-void KinematicModel::timerEvent(QTimerEvent *event) {
-	if (!_running || _velocity == nullptr) {
-		event->ignore();
-		return;
-	}
-	Q_UNUSED(event);
-	const qint64 dt = _clock.restart();
-	const double dt_IN_SECS = static_cast<double>(dt)/1000;
-	const double dx = _velocity->xComponent()*dt_IN_SECS;
-	const double x = parentItem()->x() + dx;
-	if (x > _maximumX) {
-		parentItem()->setX(qMin(x, _maximumX));
-		emit maximumXReached();
-	}
-	else if (x < _minimumX) {
-		parentItem()->setX(qMax(x, _minimumX));
-		emit minimumXReached();
-	}
-	else {
-		parentItem()->setX(x);
-	}
-
-	const double dy = _velocity->yComponent()*dt_IN_SECS;
-	const double y = parentItem()->y() + dy;
-	if (y > _maximumY) {
-		parentItem()->setY(qMin(y, _maximumY));
-		emit maximumYReached();
-	}
-	else if (y < _minimumY) {
-		parentItem()->setY(qMax(y, _minimumY));
-		emit minimumYReached();
-	}
-	else {
-		parentItem()->setY(y);
-	}
-	if (_acceleration != nullptr)
-		*_velocity += _acceleration->toPoint()*dt_IN_SECS;
-}
-
 bool KinematicModel::running() const {
 	return _running;
 }
@@ -131,4 +127,24 @@ void KinematicModel::setRunning(bool running) {
 		killTimer(_timerID);
 	}
 	emit runningChanged(running);
+}
+
+void KinematicModel::timerEvent(QTimerEvent *event) {
+	Q_UNUSED(event);
+	if (!_running) {
+		event->ignore();
+		return;
+	}
+	const qint64 dt = _clock.restart();
+	const double dt_IN_SECS = static_cast<double>(dt)/1000;
+	if (_velocity != nullptr) {
+		const double dx = _velocity->xComponent()*dt_IN_SECS;
+		setTargetX(_target->x() + dx);
+		const double dy = _velocity->yComponent()*dt_IN_SECS;
+		setTargetY(_target->y() + dy);
+	}
+
+	if (_acceleration != nullptr)
+		*_velocity += _acceleration->toPoint()*dt_IN_SECS;
+	_target->update();
 }

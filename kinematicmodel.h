@@ -2,6 +2,7 @@
 #define KINEMATICMODEL_H
 
 #include <QObject>
+#include <QQmlParserStatus>
 #include <QQuickItem>
 #include <QQmlEngine>
 #include <QElapsedTimer>
@@ -10,11 +11,15 @@
 
 #include "vector.h"
 
-class KinematicModel : public QObject {
+class KinematicModel : public QObject, public QQmlParserStatus {
 		Q_OBJECT
+		Q_INTERFACES(QQmlParserStatus)
 		QML_ELEMENT
-		Q_PROPERTY(QQuickItem *parent
-		           READ parentItem)
+		Q_PROPERTY(QQuickItem *target
+		           READ target \
+		           WRITE setTarget \
+		           NOTIFY targetChanged
+		           REQUIRED)
 		Q_PROPERTY(double minimumX \
 		           READ minimumX \
 		           WRITE setMinimumX \
@@ -46,13 +51,17 @@ class KinematicModel : public QObject {
 	public:
 		explicit KinematicModel(QObject *parent = nullptr);
 
-		QQuickItem *parentItem() const;
-
+		QQuickItem *target() const;
+		void setTarget(QQuickItem *target);
+		// Sets the x property of _target to x, capped by minimumX and maximumX.
+		void setTargetX(double x);
 		double minimumX() const;
 		void setMinimumX(double minimum);
 		double maximumX() const;
 		void setMaximumX(double maximum);
 
+		// Sets the y property of _target to y, capped by minimumY and maximumY
+		void setTargetY(double y);
 		double minimumY() const;
 		void setMinimumY(double minimum);
 		double maximumY() const;
@@ -64,12 +73,13 @@ class KinematicModel : public QObject {
 		Vector *acceleration() const;
 		void setAcceleration(Vector *vector);
 
-		void timerEvent(QTimerEvent *event) override;
-
 		bool running() const;
 		void setRunning(bool running);
 
+		void timerEvent(QTimerEvent *event) override;
+
 	signals:
+		void targetChanged();
 		void minimumXChanged();
 		void minimumXReached();
 		void maximumXChanged();
@@ -83,6 +93,7 @@ class KinematicModel : public QObject {
 		void runningChanged(bool run);
 
 	private:
+		QQuickItem *_target = nullptr;
 		double _minimumX = -1e6;
 		double _maximumX = 1e6;
 		// NOTE: use very large values because no screen has that many pixels.
