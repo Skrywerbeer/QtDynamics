@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.14.0, 2021-01-14T01:04:38. -->
+<!-- Written by QtCreator 4.14.0, 2021-01-14T14:51:07. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -338,12 +338,12 @@
     <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.Executable">qmlscene-qt6</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.CustomExecutableRunConfiguration</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey"></value>
-    <value type="QString" key="RunConfiguration.Arguments">-I %{ActiveProject:BuildConfig:Path}/import/ main.qml</value>
+    <value type="QString" key="RunConfiguration.Arguments">-I %{ActiveProject:BuildConfig:Path}/imports/ bounce/bounce.qml</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory">/home/liquidsquid/Code/qml/QtDynamics/testQml</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory">/home/liquidsquid/Code/qml/QtDynamics/demos</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
