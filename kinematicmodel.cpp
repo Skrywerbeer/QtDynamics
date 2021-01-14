@@ -137,14 +137,25 @@ void KinematicModel::timerEvent(QTimerEvent *event) {
 	}
 	const qint64 dt = _clock.restart();
 	const double dt_IN_SECS = static_cast<double>(dt)/1000;
-	if (_velocity != nullptr) {
-		const double dx = _velocity->xComponent()*dt_IN_SECS;
-		setTargetX(_target->x() + dx);
-		const double dy = _velocity->yComponent()*dt_IN_SECS;
-		setTargetY(_target->y() + dy);
-	}
 
-	if (_acceleration != nullptr)
-		*_velocity += _acceleration->toPoint()*dt_IN_SECS;
+	const double dx = _velocity->xComponent()*dt_IN_SECS;
+	setTargetX(_target->x() + dx);
+	const double dy = _velocity->yComponent()*dt_IN_SECS;
+	setTargetY(_target->y() + dy);
+
+	*_velocity += _acceleration->toPoint()*dt_IN_SECS;
 	_target->update();
+}
+
+void KinematicModel::classBegin() {
+
+}
+
+void KinematicModel::componentComplete() {
+	if (_velocity == nullptr)
+		_velocity = new Vector;
+	if (_acceleration == nullptr)
+		_acceleration = new Vector;
+	if (_target == nullptr)
+		_target = qobject_cast<QQuickItem *>(parent());
 }

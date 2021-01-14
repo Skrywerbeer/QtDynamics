@@ -11,15 +11,14 @@
 
 #include "vector.h"
 
-class KinematicModel : public QObject, public QQmlParserStatus {
+class KinematicModel : public QObject , public QQmlParserStatus {
 		Q_OBJECT
 		Q_INTERFACES(QQmlParserStatus)
 		QML_ELEMENT
 		Q_PROPERTY(QQuickItem *target
 		           READ target \
 		           WRITE setTarget \
-		           NOTIFY targetChanged
-		           REQUIRED)
+		           NOTIFY targetChanged)
 		Q_PROPERTY(double minimumX \
 		           READ minimumX \
 		           WRITE setMinimumX \
@@ -77,6 +76,9 @@ class KinematicModel : public QObject, public QQmlParserStatus {
 		void setRunning(bool running);
 
 		void timerEvent(QTimerEvent *event) override;
+
+		void classBegin() override;
+		void componentComplete() override;
 
 	signals:
 		void targetChanged();
