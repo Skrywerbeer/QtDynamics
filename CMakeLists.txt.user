@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.14.0, 2021-01-14T14:51:07. -->
+<!-- Written by QtCreator 4.14.0, 2021-01-14T15:42:39. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -338,7 +338,7 @@
     <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.Executable">qmlscene-qt6</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.CustomExecutableRunConfiguration</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey"></value>
-    <value type="QString" key="RunConfiguration.Arguments">-I %{ActiveProject:BuildConfig:Path}/imports/ bounce/bounce.qml</value>
+    <value type="QString" key="RunConfiguration.Arguments">-I %{ActiveProject:BuildConfig:Path}/imports/ bounce/main.qml</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
