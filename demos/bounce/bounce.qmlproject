@@ -16,5 +16,5 @@ Project {
         directory: "."
     }
     /* List of plugin directories passed to QML runtime */
-     importPaths: [ "/home/liquidsquid/Code/qml/build-QtDynamics-Desktop_Qt6-Debug/imports/" ]
+     importPaths: [ "/home/liquidsquid/Code/qml/build-QtDynamics-Desktop_Qt6-Debug/imports" ]
 }

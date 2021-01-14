@@ -13,6 +13,7 @@ Item {
     Emitter {
         id: emitter
         system: partSys
+        enabled: false
         lifeSpan: 5000
     }
     ItemParticle {
