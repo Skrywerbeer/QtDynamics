@@ -74,6 +74,12 @@ void KineticModel::setMass(double mass) {
 	emit massChanged();
 }
 
+void KineticModel::componentComplete() {
+	MechanicsModel::componentComplete();
+	calculateForce();
+	calculateAcceleration();
+}
+
 void KineticModel::appendForce(QQmlListProperty<Vector> *list, Vector *force) {
 	reinterpret_cast<KineticModel *>(list->data)->appendForce(force);
 }
@@ -106,6 +112,8 @@ void KineticModel::calculateForce() {
 }
 
 void KineticModel::calculateAcceleration() {
+	if (_acceleration == nullptr)
+		return;
 	_acceleration->setAngle(_force->angle());
 	_acceleration->setMagnitude(_force->magnitude()/_mass);
 }

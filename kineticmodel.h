@@ -8,6 +8,7 @@
 
 class KineticModel : public MechanicsModel {
 		Q_OBJECT
+		QML_ELEMENT
 		Q_PROPERTY(Vector *force \
 		           READ force \
 		           NOTIFY forceChanged)
@@ -37,6 +38,8 @@ class KineticModel : public MechanicsModel {
 
 		double mass() const;
 		void setMass(double mass);
+
+		void componentComplete() override;
 
 	signals:
 		void forceChanged();
