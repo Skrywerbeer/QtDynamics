@@ -1,14 +1,7 @@
 #include "kineticmodel.h"
 
 KineticModel::KineticModel(QObject *parent) :
-    MechanicsModel(parent) {
-//	connect(this, &KineticModel::forcesChanged,
-//	        this, &KineticModel::calculateForce);
-//	connect(this, &KineticModel::massChanged,
-//	        this, &KineticModel::calculateAcceleration);
-//	connect(this, &KineticModel::forceChanged,
-//	        this, &KineticModel::calculateAcceleration);
-}
+    MechanicsModel(parent) {}
 
 KineticModel::~KineticModel() {
 	disconnect(this, &KineticModel::forcesChanged,
@@ -118,8 +111,6 @@ void KineticModel::calculateForce() {
 }
 
 void KineticModel::calculateAcceleration() {
-//	if (_acceleration == nullptr)
-//		return;
 	_acceleration->setAngle(_force->angle());
 	_acceleration->setMagnitude(_force->magnitude()/_mass);
 }
