@@ -2,12 +2,12 @@
 
 KineticModel::KineticModel(QObject *parent) :
     MechanicsModel(parent) {
-	connect(this, &KineticModel::forcesChanged,
-	        this, &KineticModel::calculateForce);
-	connect(this, &KineticModel::massChanged,
-	        this, &KineticModel::calculateAcceleration);
-	connect(this, &KineticModel::forceChanged,
-	        this, &KineticModel::calculateAcceleration);
+//	connect(this, &KineticModel::forcesChanged,
+//	        this, &KineticModel::calculateForce);
+//	connect(this, &KineticModel::massChanged,
+//	        this, &KineticModel::calculateAcceleration);
+//	connect(this, &KineticModel::forceChanged,
+//	        this, &KineticModel::calculateAcceleration);
 }
 
 KineticModel::~KineticModel() {
@@ -76,6 +76,12 @@ void KineticModel::setMass(double mass) {
 
 void KineticModel::componentComplete() {
 	MechanicsModel::componentComplete();
+	connect(this, &KineticModel::forcesChanged,
+	        this, &KineticModel::calculateForce);
+	connect(this, &KineticModel::massChanged,
+	        this, &KineticModel::calculateAcceleration);
+	connect(this, &KineticModel::forceChanged,
+	        this, &KineticModel::calculateAcceleration);
 	calculateForce();
 	calculateAcceleration();
 }
@@ -112,8 +118,8 @@ void KineticModel::calculateForce() {
 }
 
 void KineticModel::calculateAcceleration() {
-	if (_acceleration == nullptr)
-		return;
+//	if (_acceleration == nullptr)
+//		return;
 	_acceleration->setAngle(_force->angle());
 	_acceleration->setMagnitude(_force->magnitude()/_mass);
 }
