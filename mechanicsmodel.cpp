@@ -117,6 +117,36 @@ void MechanicsModel::setVelocity(Vector *vector) {
 	emit velocityChanged();
 }
 
+Vector *MechanicsModel::acceleration() const {
+	return _acceleration;
+}
+
+void MechanicsModel::setAcceleration(Vector *vector) {
+	if (vector == _acceleration)
+		return;
+	_acceleration = vector;
+	emit accelerationChanged();
+}
+
+void MechanicsModel::timerEvent(QTimerEvent *event) {
+	Q_UNUSED(event);
+	if (!_running) {
+		event->ignore();
+		return;
+	}
+	const qint64 dt = _clock.restart();
+	const double dt_IN_SECS = static_cast<double>(dt)/1000;
+
+	const double dx = _velocity->xComponent()*dt_IN_SECS;
+	setTargetX(_target->x() + dx);
+	const double dy = _velocity->yComponent()*dt_IN_SECS;
+	setTargetY(_target->y() + dy);
+
+	*_velocity += _acceleration->toPoint()*dt_IN_SECS;
+	emit velocityChanged();
+	_target->update();
+}
+
 void MechanicsModel::classBegin() {
 
 }
@@ -126,4 +156,6 @@ void MechanicsModel::componentComplete() {
 		_target = qobject_cast<QQuickItem *>(parent());
 	if (_velocity == nullptr)
 		_velocity = new Vector;
+	if (_acceleration == nullptr)
+		_acceleration = new Vector;
 }

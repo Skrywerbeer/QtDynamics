@@ -65,6 +65,11 @@ class MechanicsModel : public QObject, public QQmlParserStatus {
 		Vector *velocity() const;
 		void setVelocity(Vector *vector);
 
+		Vector *acceleration() const;
+		void setAcceleration(Vector *vector);
+
+		void timerEvent(QTimerEvent *event) override;
+
 		void classBegin() override;
 		void componentComplete() override;
 
@@ -82,6 +87,7 @@ class MechanicsModel : public QObject, public QQmlParserStatus {
 		void maximumYReached();
 
 		void velocityChanged();
+		void accelerationChanged();
 
 		void runningChanged();
 
@@ -95,6 +101,7 @@ class MechanicsModel : public QObject, public QQmlParserStatus {
 		double _maximumY = 1e6;
 
 		Vector *_velocity = nullptr;
+		Vector *_acceleration = nullptr;
 
 		bool _running = false;
 
