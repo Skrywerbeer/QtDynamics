@@ -25,6 +25,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
 set(PROJECT_SOURCES
 	mechanicsmodel.cpp mechanicsmodel.h
 	kinematicmodel.cpp kinematicmodel.h
+	kineticmodel.cpp kineticmodel.h
 
 	vector.cpp vector.h
 
