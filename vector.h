@@ -37,7 +37,7 @@ class Vector : public QObject {
 		void setYComponent(const double &value);
 
 		double angle() const;
-		void setAngle(const double &angle);
+		void setAngle(double angle);
 
 		double magnitude() const;
 		void setMagnitude(const double &magnitude);

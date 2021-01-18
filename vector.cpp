@@ -41,9 +41,17 @@ double Vector::angle() const {
 	return qRadiansToDegrees(qAtan2(_vector.y(), _vector.x()));
 }
 
-void Vector::setAngle(const double &degrees) {
+void Vector::setAngle(double degrees) {
 	if (degrees == angle())
 		return;
+
+	if (degrees > 360)
+		while (degrees > 360)
+			degrees -= 360;
+	else if (degrees < -360)
+		while (degrees < -360)
+			degrees += 360;
+
 	const double RADIANS = qDegreesToRadians(degrees);
 	const double MAG = magnitude();
 	_vector.setX(MAG*qCos(RADIANS));
