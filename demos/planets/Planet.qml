@@ -28,8 +28,8 @@ Rectangle {
         }
         acceleration: Vector {
             id: accelerationVector
-            xComponent: (rootWindow.width/2 - (root.x + root.width/2))/scaler
-            yComponent: (rootWindow.height/2 - (root.y + root.width/2))/scaler
+            x: (rootWindow.width/2 - (root.x + root.width/2))/scaler
+            y: (rootWindow.height/2 - (root.y + root.width/2))/scaler
         }
         running: true
     }

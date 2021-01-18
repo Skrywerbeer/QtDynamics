@@ -90,8 +90,8 @@ Window {
 
         Vector {
             id: mouseVector
-            xComponent: mouseArea.mouseX - (ball.x + ball.width/2)
-            yComponent: mouseArea.mouseY - (ball.y + ball.height/2)
+            x: mouseArea.mouseX - (ball.x + ball.width/2)
+            y: mouseArea.mouseY - (ball.y + ball.height/2)
         }
 
         onPressed: ball.followMouse = true
