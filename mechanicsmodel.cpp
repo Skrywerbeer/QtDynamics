@@ -137,9 +137,9 @@ void MechanicsModel::timerEvent(QTimerEvent *event) {
 	const qint64 dt = _clock.restart();
 	const double dt_IN_SECS = static_cast<double>(dt)/1000;
 
-	const double dx = _velocity->xComponent()*dt_IN_SECS;
+	const double dx = _velocity->x()*dt_IN_SECS;
 	setTargetX(_target->x() + dx);
-	const double dy = _velocity->yComponent()*dt_IN_SECS;
+	const double dy = _velocity->y()*dt_IN_SECS;
 	setTargetY(_target->y() + dy);
 
 	*_velocity += _acceleration->toPoint()*dt_IN_SECS;
