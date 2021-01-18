@@ -9,30 +9,30 @@ Vector::Vector(double x, double y, QObject *parent) :
     _vector(x, y) {
 }
 
-double Vector::xComponent() const {
+double Vector::x() const {
 	return _vector.x();
 }
 
-void Vector::setXComponent(const double &value) {
+void Vector::setX(const double &value) {
 	if (value == _vector.x())
 		return;
 	_vector.setX(value);
 	emit changed();
-	emit xComponentChanged();
+	emit xChanged();
 	emit magnitudeChanged();
 	emit angleChanged();
 }
 
-double Vector::yComponent() const {
+double Vector::y() const {
 	return _vector.y();
 }
 
-void Vector::setYComponent(const double &value) {
+void Vector::setY(const double &value) {
 	if (value == _vector.y())
 		return;
 	_vector.setY(value);
 	emit changed();
-	emit yComponentChanged();
+	emit yChanged();
 	emit magnitudeChanged();
 	emit angleChanged();
 }
@@ -57,8 +57,8 @@ void Vector::setAngle(double degrees) {
 	_vector.setX(MAG*qCos(RADIANS));
 	_vector.setY(MAG*qSin(RADIANS));
 	emit changed();
-	emit xComponentChanged();
-	emit yComponentChanged();
+	emit xChanged();
+	emit yChanged();
 	emit angleChanged();
 }
 
@@ -75,8 +75,8 @@ void Vector::setMagnitude(const double &mag) {
 	_vector.setX(mag*qCos(RADIANS));
 	_vector.setY(mag*qSin(RADIANS));
 	emit changed();
-	emit xComponentChanged();
-	emit yComponentChanged();
+	emit xChanged();
+	emit yChanged();
 	emit magnitudeChanged();
 }
 
@@ -92,11 +92,15 @@ QPointF Vector::normalized() const {
 	return _vector/qSqrt(QPointF::dotProduct(_vector, _vector));
 }
 
+Vector *Vector::inverse() const {
+	return new Vector(-_vector.x(), -_vector.y());
+}
+
 void Vector::operator+=(const QPointF &vec) {
 	_vector += vec;
 	emit changed();
-	emit xComponentChanged();
-	emit yComponentChanged();
+	emit xChanged();
+	emit yChanged();
 	emit magnitudeChanged();
 	emit angleChanged();
 }
@@ -104,8 +108,8 @@ void Vector::operator+=(const QPointF &vec) {
 void Vector::operator-=(const QPointF &vec) {
 	_vector -= vec;
 	emit changed();
-	emit xComponentChanged();
-	emit yComponentChanged();
+	emit xChanged();
+	emit yChanged();
 	emit magnitudeChanged();
 	emit angleChanged();
 }

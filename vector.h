@@ -8,14 +8,14 @@
 class Vector : public QObject {
 		Q_OBJECT
 		QML_ELEMENT
-		Q_PROPERTY(double xComponent \
-		           READ xComponent \
-		           WRITE setXComponent \
-		           NOTIFY xComponentChanged)
-		Q_PROPERTY(double yComponent \
-		           READ yComponent \
-		           WRITE setYComponent \
-		           NOTIFY yComponentChanged)
+		Q_PROPERTY(double x \
+		           READ x \
+		           WRITE setX \
+		           NOTIFY xChanged)
+		Q_PROPERTY(double y \
+		           READ y \
+		           WRITE setY \
+		           NOTIFY yChanged)
 		Q_PROPERTY(double angle \
 		           READ angle \
 		           WRITE setAngle \
@@ -30,11 +30,11 @@ class Vector : public QObject {
 		explicit Vector(QObject *parent = nullptr);
 		Vector(double x, double y, QObject *parent = nullptr);
 
-		double xComponent() const;
-		void setXComponent(const double &value);
+		double x() const;
+		void setX(const double &value);
 
-		double yComponent() const;
-		void setYComponent(const double &value);
+		double y() const;
+		void setY(const double &value);
 
 		double angle() const;
 		void setAngle(double angle);
@@ -46,13 +46,15 @@ class Vector : public QObject {
 		QPointF toPoint() const;
 		QPointF normalized() const;
 
+		Q_INVOKABLE Vector *inverse() const;
+
 		void operator+=(const QPointF &vec);
 		void operator-=(const QPointF &vec);
 
 	signals:
 		void changed();
-		void xComponentChanged();
-		void yComponentChanged();
+		void xChanged();
+		void yChanged();
 		void angleChanged();
 		void magnitudeChanged();
 
