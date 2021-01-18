@@ -28,6 +28,8 @@ QQmlListProperty<Vector> KineticModel::forces() {
 
 void KineticModel::appendForce(Vector *force) {
 	_forces.append(force);
+	connect(force, &Vector::changed,
+	        this, &KineticModel::forcesChanged);
 	emit forcesChanged();
 }
 
@@ -40,16 +42,23 @@ Vector *KineticModel::forceAt(qsizetype index) const {
 }
 
 void KineticModel::clearForces() {
+	for (auto &force : _forces)
+		disconnect(force, &Vector::changed,
+		           this, &KineticModel::forcesChanged);
 	_forces.clear();
 	emit forcesChanged();
 }
 
 void KineticModel::replaceForce(qsizetype index, Vector *force) {
+	disconnect(_forces[index], &Vector::changed,
+	           this, &KineticModel::forcesChanged);
 	_forces.replace(index, force);
 	emit forcesChanged();
 }
 
 void KineticModel::removeLastForce() {
+	disconnect(_forces.last(), &Vector::changed,
+	           this, &KineticModel::forcesChanged);
 	_forces.removeLast();
 	emit forcesChanged();
 }
