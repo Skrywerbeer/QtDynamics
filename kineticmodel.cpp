@@ -70,8 +70,11 @@ double KineticModel::mass() const {
 void KineticModel::setMass(double mass) {
 	if (mass == _mass)
 		return;
-	if (mass == 0)
-		qFatal("Objects can not have zero mass");
+	if (mass == 0) {
+//		qFatal("Objects can not have zero mass");
+		qWarning("Object can not have zero mass!");
+		return;
+	}
 	_mass = mass;
 	emit massChanged();
 }
