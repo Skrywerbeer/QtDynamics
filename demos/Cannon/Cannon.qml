@@ -12,7 +12,6 @@ Image {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            console.log(ballComponent.errorString())
             ball = ballComponent.createObject(root.parent, {
                                                   x: root.x + (root.width - 48)/2,
                                                   y: root.y + (root.height - 48)/2
