@@ -63,7 +63,7 @@ add_custom_command(TARGET qtdynamicsplugin POST_BUILD
 	COMMAND mkdir -p ${MODULE_LOCATION}
     COMMAND cp $<TARGET_FILE:qtdynamicsplugin> ${MODULE_LOCATION}
 	COMMAND cp qmldir ${MODULE_LOCATION}
-	COMMAND qmlplugindump-qt6 QtDynamics 1.0 ${MODULE_LOCATION}/../ > ${MODULE_LOCATION}/plugins.qmltypes
+	COMMAND qmlplugindump-qt6 -nonrelocatable QtDynamics 1.0 ${MODULE_LOCATION}/../ > ${MODULE_LOCATION}/plugins.qmltypes
 	)
 
 target_compile_definitions(qtdynamicsplugin
