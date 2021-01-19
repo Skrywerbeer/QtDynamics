@@ -11,53 +11,54 @@ Window {
     height: 480
     visible: true
     title: qsTr("Spring")
-
-    ColumnLayout {
-        id: controls
+    Frame {
         ColumnLayout {
-            Layout.topMargin: 10
-            Text {
+            id: controls
+            ColumnLayout {
+                Layout.topMargin: 10
+                Text {
+                    Layout.alignment: Qt.AlignHCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    text: "Mass: " + massSlider.value.toPrecision(2)
+                }
+                Slider {
+                    id: massSlider
+                    from: 0.1
+                    to: 10
+                }
+            }
+            ColumnLayout {
+                Text {
+                    Layout.alignment: Qt.AlignHCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    text: "Spring constant: " + springSlider.value.toPrecision(2)
+                }
+                Slider {
+                    id: springSlider
+                    from: 1
+                    to: 100
+                }
+            }
+            ColumnLayout {
+                Text {
+                    Layout.alignment: Qt.AlignHCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    text: "Friction: " + frictionSlider.value.toPrecision(2)
+                }
+                Slider {
+                    id: frictionSlider
+                    from: 0
+                    to: 10
+                }
+            }
+            Button {
                 Layout.alignment: Qt.AlignHCenter
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                text: "Mass: " + massSlider.value.toPrecision(2)
+                text: "Reset"
+                onClicked: springWeight.reset()
             }
-            Slider {
-                id: massSlider
-                from: 0.1
-                to: 10
-            }
-        }
-        ColumnLayout {
-            Text {
-                Layout.alignment: Qt.AlignHCenter
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                text: "Spring constant: " + springSlider.value.toPrecision(2)
-            }
-            Slider {
-                id: springSlider
-                from: 1
-                to: 100
-            }
-        }
-        ColumnLayout {
-            Text {
-                Layout.alignment: Qt.AlignHCenter
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                text: "Friction: " + frictionSlider.value.toPrecision(2)
-            }
-            Slider {
-                id: frictionSlider
-                from: 0
-                to: 10
-            }
-        }
-        Button {
-            Layout.alignment: Qt.AlignHCenter
-            text: "Reset"
-            onClicked: springWeight.reset()
         }
     }
     Shape {
