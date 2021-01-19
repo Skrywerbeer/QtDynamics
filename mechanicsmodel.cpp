@@ -106,6 +106,10 @@ void MechanicsModel::setMaximumY(double maximum) {
 	emit maximumYChanged();
 }
 
+Vector *MechanicsModel::displacement() const {
+	return _displacement;
+}
+
 Vector *MechanicsModel::velocity() const {
 	return _velocity;
 }
@@ -141,6 +145,9 @@ void MechanicsModel::timerEvent(QTimerEvent *event) {
 	setTargetX(_target->x() + dx);
 	const double dy = _velocity->y()*dt_IN_SECS;
 	setTargetY(_target->y() + dy);
+
+	_displacement->vector() += {dx, dy};
+	emit displacementChanged();
 
 	*_velocity += _acceleration->toPoint()*dt_IN_SECS;
 	emit velocityChanged();

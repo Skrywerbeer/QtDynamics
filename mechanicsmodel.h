@@ -35,6 +35,9 @@ class MechanicsModel : public QObject, public QQmlParserStatus {
 		           READ maximumY \
 		           WRITE setMaximumY \
 		           NOTIFY maximumYChanged)
+		Q_PROPERTY(Vector *displacement \
+		           READ displacement \
+		           NOTIFY displacementChanged)
 		Q_PROPERTY(Vector *velocity \
 		           READ velocity \
 		           WRITE setVelocity
@@ -62,6 +65,8 @@ class MechanicsModel : public QObject, public QQmlParserStatus {
 		double maximumY() const;
 		void setMaximumY(double maximum);
 
+		Vector *displacement() const;
+
 		Vector *velocity() const;
 		void setVelocity(Vector *vector);
 
@@ -86,6 +91,7 @@ class MechanicsModel : public QObject, public QQmlParserStatus {
 		void maximumYChanged();
 		void maximumYReached();
 
+		void displacementChanged();
 		void velocityChanged();
 		void accelerationChanged();
 
@@ -100,6 +106,7 @@ class MechanicsModel : public QObject, public QQmlParserStatus {
 		double _minimumY = -1e6;
 		double _maximumY = 1e6;
 
+		Vector *_displacement = new Vector(0, 0);
 		Vector *_velocity = nullptr;
 		Vector *_acceleration = nullptr;
 
