@@ -50,11 +50,11 @@ Window {
                 angle: ball.followMouse ? mouseVector.angle : 90
                 magnitude: 400
             }
-            onMinimumXReached: velVec.xComponent = -k*velVec.xComponent
-            onMaximumXReached: velVec.xComponent = -k*velVec.xComponent
+            onMinimumXReached: velVec.x = -k*velVec.x
+            onMaximumXReached: velVec.x = -k*velVec.x
 
-            onMinimumYReached: velVec.yComponent = -k*velVec.yComponent
-            onMaximumYReached: velVec.yComponent = -k*velVec.yComponent
+            onMinimumYReached: velVec.y = -k*velVec.y
+            onMaximumYReached: velVec.y = -k*velVec.y
         }
     }
     Rectangle {
