@@ -30,7 +30,7 @@ Item {
 
     Row {
         id: stringRow
-        spacing: 10
+//        spacing: 10
     }
     Component.onCompleted: {
         populate(count)

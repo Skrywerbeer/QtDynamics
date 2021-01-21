@@ -11,9 +11,9 @@ Window {
         id: string
         y: parent.height/2
         count: 41
-        mass: 400
+        mass: 100
         damping: 0.8
-        k: 100
+        k: 50
     }
     Timer {
         interval: 1000

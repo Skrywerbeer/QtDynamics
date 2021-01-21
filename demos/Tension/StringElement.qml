@@ -19,7 +19,7 @@ Rectangle {
 
     KineticModel {
         id: model
-        running: !handle.active && root.running
+        running: !handle.active// && root.running
 //        running: true
         forces: [
             Vector {
@@ -36,13 +36,13 @@ Rectangle {
                            model.velocity.angle + 180 : 0
                 magnitude: model.velocity !== null ?
                                model.velocity.magnitude*mu : 0
+            },
+            Vector {
+                id: weight
+                magnitude: (root.nextElement !== null) && (root.previousElement !== null) ?
+                               10*root.dm : 0
+                angle: 90
             }
-//            Vector {
-//                id: weight
-//                magnitude: (root.nextElement !== null) && (root.previousElement !== null) ?
-//                               10*root.dm : 0
-//                angle: 90
-//            }
         ]
     }
     Vector {
@@ -61,11 +61,19 @@ Rectangle {
     }
     VectorArrow {
         anchors.centerIn: parent
-        target: model.force
+        target: thisToPrevious
         lineWidth: 4
-        color: "orchid"
+        color: "blue"
         proportional: false
-        length: 40
+        length: 10
+    }
+    VectorArrow {
+        anchors.centerIn: parent
+        target: thisToNext
+        lineWidth: 4
+        color: "red"
+        proportional: false
+        length: 10
     }
     DragHandler {
         id: handle
