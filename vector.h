@@ -11,19 +11,19 @@ class Vector : public QObject {
 		Q_PROPERTY(double x \
 		           READ x \
 		           WRITE setX \
-		           NOTIFY xChanged)
+		           NOTIFY changed)
 		Q_PROPERTY(double y \
 		           READ y \
 		           WRITE setY \
-		           NOTIFY yChanged)
+		           NOTIFY changed)
 		Q_PROPERTY(double angle \
 		           READ angle \
 		           WRITE setAngle \
-		           NOTIFY angleChanged)
+		           NOTIFY changed)
 		Q_PROPERTY(double magnitude \
 		           READ magnitude \
 		           WRITE setMagnitude \
-		           NOTIFY magnitudeChanged)
+		           NOTIFY changed)
 	public:
 		explicit Vector(QObject *parent = nullptr);
 		Vector(double x, double y, QObject *parent = nullptr);
@@ -53,10 +53,6 @@ class Vector : public QObject {
 
 	signals:
 		void changed();
-		void xChanged();
-		void yChanged();
-		void angleChanged();
-		void magnitudeChanged();
 
 	private:
 		QPointF _vector;
