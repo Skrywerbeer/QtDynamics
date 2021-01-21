@@ -146,11 +146,18 @@ void MechanicsModel::timerEvent(QTimerEvent *event) {
 	const double dy = _velocity->y()*dt_IN_SECS;
 	setTargetY(_target->y() + dy);
 
-	_displacement->vector() += {dx, dy};
-	emit displacementChanged();
 
-	*_velocity += _acceleration->toPoint()*dt_IN_SECS;
-	emit velocityChanged();
+	const QPointF ds = {dx, dy};
+	if (ds.manhattanLength() > 0) {
+		_displacement->fromPoint(_displacement->toPoint() + ds);
+		emit displacementChanged();
+	}
+
+	const QPointF dv = _acceleration->toPoint()*dt_IN_SECS;
+	if (dv.manhattanLength() > 0) {
+		_velocity->fromPoint(_velocity->toPoint() + dv);
+		emit velocityChanged();
+	}
 	_target->update();
 }
 
