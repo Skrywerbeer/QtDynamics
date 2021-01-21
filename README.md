@@ -10,7 +10,7 @@ make
 ```
 And add the built plugin to your qml import path.
 `
-export QML2_IMPORT_PATH=/build/directory/imports
+export QML2_IMPORT_PATH=$QML2_IMPORT_PATH:$(pwd)/imports
 `
 
 ## Usage
