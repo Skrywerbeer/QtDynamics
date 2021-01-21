@@ -52,6 +52,8 @@ void KineticModel::clearForces() {
 void KineticModel::replaceForce(qsizetype index, Vector *force) {
 	disconnect(_forces[index], &Vector::changed,
 	           this, &KineticModel::forcesChanged);
+	connect(force, &Vector::changed,
+	        this, &KineticModel::forceChanged);
 	_forces.replace(index, force);
 	emit forcesChanged();
 }
