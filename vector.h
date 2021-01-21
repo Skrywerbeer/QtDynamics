@@ -19,13 +19,11 @@ class Vector : public QObject {
 		Q_PROPERTY(double angle \
 		           READ angle \
 		           WRITE setAngle \
-		           NOTIFY angleChanged
-		           STORED false)
+		           NOTIFY angleChanged)
 		Q_PROPERTY(double magnitude \
 		           READ magnitude \
 		           WRITE setMagnitude \
-		           NOTIFY magnitudeChanged
-		           STORED false)
+		           NOTIFY magnitudeChanged)
 	public:
 		explicit Vector(QObject *parent = nullptr);
 		Vector(double x, double y, QObject *parent = nullptr);
@@ -36,6 +34,9 @@ class Vector : public QObject {
 		double y() const;
 		void setY(const double &value);
 
+		QPointF toPoint() const;
+		void fromPoint(const QPointF &point);
+
 		double angle() const;
 		void setAngle(double angle);
 
@@ -43,7 +44,6 @@ class Vector : public QObject {
 		void setMagnitude(const double &magnitude);
 
 		QPointF &vector();
-		QPointF toPoint() const;
 		QPointF normalized() const;
 
 		Q_INVOKABLE Vector *inverse() const;
@@ -60,6 +60,10 @@ class Vector : public QObject {
 
 	private:
 		QPointF _vector;
+		double _angle;
+		double _magnitude;
+		void updatePolar();
+		void updateCartesian();
 };
 
 
