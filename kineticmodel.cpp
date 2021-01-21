@@ -116,14 +116,9 @@ void KineticModel::removeLastForce(QQmlListProperty<Vector> *list) {
 
 void KineticModel::calculateForce() {
 	QPointF accumulator;
-	for (const auto &force : _forces) {
-		qDebug() << "component: angle:" << force->angle()
-		         << "magnitude:" << force->magnitude();
+	for (const auto &force : _forces)
 		accumulator += force->toPoint();
-	}
 	_force->fromPoint(accumulator);
-	qDebug() << "force: angle:" << _force->angle()
-	         << "magnitude:" << _force->magnitude();
 	emit forceChanged();
 }
 
@@ -131,6 +126,4 @@ void KineticModel::calculateAcceleration() {
 	_acceleration->setAngle(_force->angle());
 	_acceleration->setMagnitude(_force->magnitude()/_mass);
 	emit accelerationChanged();
-	qDebug() << "acceleration: angle:" << _acceleration->angle()
-	         << "magnitude:" << _acceleration->magnitude();
 }
