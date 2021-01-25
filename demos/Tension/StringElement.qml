@@ -36,13 +36,13 @@ Rectangle {
                            model.velocity.angle + 180 : 0
                 magnitude: model.velocity !== null ?
                                model.velocity.magnitude*mu : 0
-            },
-            Vector {
-                id: weight
-                magnitude: (root.nextElement !== null) && (root.previousElement !== null) ?
-                               10*root.dm : 0
-                angle: 90
             }
+//            Vector {
+//                id: weight
+//                magnitude: (root.nextElement !== null) && (root.previousElement !== null) ?
+//                               10*root.dm : 0
+//                angle: 90
+//            }
         ]
     }
     Vector {
@@ -59,22 +59,22 @@ Rectangle {
         y: nextElement !== null ?
                (nextElement.y + nextElement.height/2) - (root.y + root.height/2) : 0
     }
-    VectorArrow {
-        anchors.centerIn: parent
-        target: thisToPrevious
-        lineWidth: 4
-        color: "blue"
-        proportional: false
-        length: 10
-    }
-    VectorArrow {
-        anchors.centerIn: parent
-        target: thisToNext
-        lineWidth: 4
-        color: "red"
-        proportional: false
-        length: 10
-    }
+//    VectorArrow {
+//        anchors.centerIn: parent
+//        target: thisToPrevious
+//        lineWidth: 4
+//        color: "blue"
+//        proportional: false
+//        length: 10
+//    }
+//    VectorArrow {
+//        anchors.centerIn: parent
+//        target: thisToNext
+//        lineWidth: 4
+//        color: "red"
+//        proportional: false
+//        length: 10
+//    }
     DragHandler {
         id: handle
         xAxis.enabled: false

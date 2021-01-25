@@ -10,10 +10,10 @@ Window {
     String {
         id: string
         y: parent.height/2
-        count: 41
-        mass: 100
-        damping: 0.8
-        k: 50
+        count: 101
+        mass: 200
+        damping: 0.4
+        k: 100
     }
     Timer {
         interval: 1000
