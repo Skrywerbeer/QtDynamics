@@ -34,6 +34,9 @@ set(PROJECT_SOURCES
 	arrowbodynode.cpp arrowbodynode.h
 	arrowheadnode.cpp arrowheadnode.h
 
+	collisiondetector.cpp collisiondetector.h
+	aabbcollisiondetector.cpp aabbcollisiondetector.h
+
 	qtdynamicsplugin.cpp qtdynamicsplugin.h
 )
 
