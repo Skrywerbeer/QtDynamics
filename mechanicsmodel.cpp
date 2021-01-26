@@ -180,4 +180,8 @@ void MechanicsModel::componentComplete() {
 		_velocity = new Vector;
 	if (_acceleration == nullptr)
 		_acceleration = new Vector;
+	if (_running) {
+		_clock.start();
+		_timerID = startTimer(0);
+	}
 }
