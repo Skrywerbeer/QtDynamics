@@ -110,7 +110,7 @@ class MechanicsModel : public QObject, public QQmlParserStatus {
 		Vector *_velocity = nullptr;
 		Vector *_acceleration = nullptr;
 
-		bool _running = false;
+		bool _running = true;
 
 		QElapsedTimer _clock;
 		int _timerID;
