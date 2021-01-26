@@ -9,7 +9,7 @@ class AABBCollisionDetector : public CollisionDetector {
 	public:
 		explicit AABBCollisionDetector(QObject *parent = nullptr);
 
-		bool collides(QQuickItem *item1, QQuickItem *item2) override;
+		bool collides(QQuickItem *item) override;
 
 	signals:
 

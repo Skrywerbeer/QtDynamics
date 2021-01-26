@@ -7,9 +7,9 @@ void CollisionDetector::checkAllItems() {
 	const qsizetype ITEM_COUNT = _items.count();
 	if (ITEM_COUNT < 1)
 		return;
-	for (qsizetype i = 0; i < ITEM_COUNT; ++i)
-		if (collides(_target, _items.at(i)))
-			emit collision(_items.at(i));
+	for (const auto &item : _items)
+		if (collides(item))
+			emit collision(item);
 }
 
 QQuickItem *CollisionDetector::target() const {
@@ -21,6 +21,37 @@ void CollisionDetector::setTarget(QQuickItem *target) {
 		return;
 	_target = target;
 	emit targetChanged();
+}
+
+uint CollisionDetector::timerInterval() const {
+	return _timerInterval;
+}
+
+void CollisionDetector::setTimerInterval(uint interval) {
+	if (interval == _timerInterval)
+		return;
+	_timerInterval = interval;
+	emit timerIntervalChanged();
+}
+
+bool CollisionDetector::timerRunning() const {
+	return _timerRunning;
+}
+
+void CollisionDetector::setTimerRunning(bool run) {
+	if (run == _timerRunning)
+		return;
+	_timerRunning = run;
+	if (run)
+		_timerID = startTimer(_timerInterval);
+	else
+		killTimer(_timerID);
+	emit timerRunningChanged();
+}
+
+void CollisionDetector::timerEvent(QTimerEvent *event) {
+	event->accept();
+	checkAllItems();
 }
 
 QQmlListProperty<QQuickItem> CollisionDetector::items() {
