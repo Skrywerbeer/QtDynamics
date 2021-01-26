@@ -35,6 +35,10 @@ void MechanicsModel::setRunning(bool running) {
 }
 
 void MechanicsModel::setTargetX(double x) {
+	if (_minimumX >= _maximumX) {
+		_target->setX(x);
+		return;
+	}
 	if (x > _maximumX) {
 		_target->setX(qMin(x, _maximumX));
 		emit maximumXReached();
@@ -71,6 +75,10 @@ void MechanicsModel::setMaximumX(double maximum) {
 }
 
 void MechanicsModel::setTargetY(double y) {
+	if (_minimumY >= _maximumY) {
+		_target->setY(y);
+		return;
+	}
 	if (y > _maximumY) {
 		_target->setY(qMin(y, _maximumY));
 		emit maximumYReached();
