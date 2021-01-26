@@ -1,6 +1,7 @@
 import QtQuick
 
 import QtDynamics
+import "logic.js" as Logic
 
 Image {
     id: root
@@ -14,7 +15,6 @@ Image {
     KinematicModel {
         id: model
 
-        running: true
         velocity: Vector {
             angle: root.rotation
             magnitude: 300 + shipVelocity
@@ -24,12 +24,15 @@ Image {
                 root.destroy()
         }
     }
-//    onXChanged: {
-//        if ((x < 0) || x > (root.parent.width))
-//            destroy()
-//    }
-//    onYChanged: {
-//        if ((y < 0 )|| (x > root.parent.height))
-//            destroy()
-//    }
+    AABBCollisionDetector {
+        id: detector
+        items: Logic.asteroids
+        timerInterval: 50
+        timerRunning: true
+        onCollision: {
+            console.log("HIT")
+            Logic.destroyAsteroid(item)
+            root.destroy()
+        }
+    }
 }

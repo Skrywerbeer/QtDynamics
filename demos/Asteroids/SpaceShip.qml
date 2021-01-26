@@ -1,6 +1,7 @@
 import QtQuick
 
 import QtDynamics
+import "logic.js" as Logic
 
 Image {
     id: root
@@ -20,6 +21,8 @@ Image {
     property bool turningRight: false
     property bool fired: false
 
+    signal shipDestroyed
+
     width: 32
     height: 32
     focus: true
@@ -28,11 +31,10 @@ Image {
     KineticModel {
         id: model
 
-        running: true
-        minimumX: 0
-        maximumX: root.parent.width - root.width
-        minimumY: 0
-        maximumY: root.parent.height - root.height
+        minimumX: -root.width
+        maximumX: root.parent.width
+        minimumY: -root.height
+        maximumY: root.parent.height
         mass: 1
         forces: [
             Vector {
@@ -41,7 +43,19 @@ Image {
                 magnitude: engineOn ? 100 : 0
             }
         ]
+        onMinimumXReached: root.x = root.parent.width
+        onMaximumXReached: root.x = -root.width+1
+        onMinimumYReached: root.y =root.parent.height
+        onMaximumYReached: root.y = -root.height+1
     }
+    AABBCollisionDetector {
+        items: Logic.asteroids
+        timerInterval: 50
+        timerRunning: true
+//        onCollision: root.shipDestroyed()
+//        onCollision: console.log("Your ship has crashed")
+    }
+
     Behavior on rotation {NumberAnimation{ duration: 100}}
     Timer {
         interval: 100
