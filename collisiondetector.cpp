@@ -5,11 +5,22 @@ CollisionDetector::CollisionDetector(QObject *parent) :
 
 void CollisionDetector::checkAllItems() {
 	const qsizetype ITEM_COUNT = _items.count();
-	if (ITEM_COUNT < 2)
+	if (ITEM_COUNT < 1)
 		return;
 	for (qsizetype i = 0; i < ITEM_COUNT; ++i)
-		for (qsizetype j = i +1; j < ITEM_COUNT; ++j)
-			collides(_items.at(i), _items.at(j));
+		if (collides(_target, _items.at(i)))
+			emit collision(_items.at(i));
+}
+
+QQuickItem *CollisionDetector::target() const {
+	return _target;
+}
+
+void CollisionDetector::setTarget(QQuickItem *target) {
+	if (target == _target)
+		return;
+	_target = target;
+	emit targetChanged();
 }
 
 QQmlListProperty<QQuickItem> CollisionDetector::items() {
@@ -44,6 +55,15 @@ void CollisionDetector::replaceItem(qsizetype index, QQuickItem *item) {
 
 void CollisionDetector::removeLastItem() {
 	_items.removeLast();
+}
+
+void CollisionDetector::classBegin() {
+
+}
+
+void CollisionDetector::componentComplete() {
+	if (_target == nullptr)
+		setTarget(static_cast<QQuickItem *>(parent()));
 }
 
 void CollisionDetector::appendItem(QQmlListProperty<QQuickItem> *list,

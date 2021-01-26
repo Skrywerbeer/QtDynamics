@@ -14,10 +14,8 @@ bool AABBCollisionDetector::collides(QQuickItem *item1, QQuickItem *item2) {
 	const double bottomY2 = item2->y() + item2->height();
 
 	if ((leftX1 <= rightX2) && (rightX1 >= leftX2) &&
-	        (topY1 <= bottomY2) && (bottomY1 >= topY2)) {
-		emit collision(item1, item2);
+	        (topY1 <= bottomY2) && (bottomY1 >= topY2))
 		return true;
-	}
 	return false;
 }
 
