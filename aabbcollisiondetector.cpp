@@ -13,7 +13,9 @@ bool AABBCollisionDetector::collides(QQuickItem *item) {
 	const double topY1 = _target->y();
 	const double bottomY1 = _target->y() + _target->height();
 
-	const QPointF itemMapped = item->mapToItem(_target->parentItem(), item->position()) - item->position();
+	const QPointF itemMapped = _target->parentItem() != item->parentItem() ?
+	                                                        item->mapToItem(_target->parentItem(), item->position()) - item->position() :
+	                                                        item->position();
 	const double leftX2 = itemMapped.x();
 	const double rightX2 = itemMapped.x() + item->width();
 	const double topY2 = itemMapped.y();
