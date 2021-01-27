@@ -7,6 +7,7 @@
 
 class CollisionDetector : public QObject, public QQmlParserStatus {
 		Q_OBJECT
+		Q_INTERFACES(QQmlParserStatus)
 		Q_PROPERTY(QQuickItem *target \
 		           READ target \
 		           WRITE setTarget \

@@ -11,6 +11,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_subdirectory(demos)
+
 find_package(QT NAMES Qt6 COMPONENTS
 	Core
 	Gui

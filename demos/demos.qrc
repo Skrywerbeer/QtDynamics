@@ -1,0 +1,49 @@
+<RCC>
+    <qresource prefix="/demo">
+        <file>Asteroids/Asteroid.qml</file>
+        <file>Asteroids/asteroid1.png</file>
+        <file>Asteroids/asteroid1.svg</file>
+        <file>Asteroids/Asteroids.qmlproject</file>
+        <file>Asteroids/bullet.png</file>
+        <file>Asteroids/Bullet.qml</file>
+        <file>Asteroids/bullet.svg</file>
+        <file>Asteroids/global.js</file>
+        <file>Asteroids/logic.js</file>
+        <file>Asteroids/main.qml</file>
+        <file>Asteroids/SpaceShip.qml</file>
+        <file>Asteroids/spaceship_engine_off.png</file>
+        <file>Asteroids/spaceship_engine_off.svg</file>
+        <file>Asteroids/spaceship_engine_on.png</file>
+        <file>Asteroids/spaceship_engine_on.svg</file>
+        <file>bounce/Ball.qml</file>
+        <file>bounce/bounce.qmlproject</file>
+        <file>bounce/main.qml</file>
+        <file>bounce/Tracer.qml</file>
+        <file>Cannon/cannon.png</file>
+        <file>Cannon/Cannon.qml</file>
+        <file>Cannon/Cannon.qmlproject</file>
+        <file>Cannon/cannon.svg</file>
+        <file>Cannon/cannonball.png</file>
+        <file>Cannon/CannonBall.qml</file>
+        <file>Cannon/cannonball.svg</file>
+        <file>Cannon/main.qml</file>
+        <file>Cannon/Tracer.qml</file>
+        <file>CollisionDrag/CollisionDrag.qmlproject</file>
+        <file>CollisionDrag/main.qml</file>
+        <file>planets/main.qml</file>
+        <file>planets/Planet.qml</file>
+        <file>SolarSystem/Body.qml</file>
+        <file>SolarSystem/main.qml</file>
+        <file>SolarSystem/SolarSystem.qmlproject</file>
+        <file>Spring/main.qml</file>
+        <file>Spring/Spring.qmlproject</file>
+        <file>Spring/Weight.qml</file>
+        <file>Tension/main.qml</file>
+        <file>Tension/String.qml</file>
+        <file>Tension/StringElement.qml</file>
+        <file>Tension/Tension.qmlproject</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>demoLoader.qml</file>
+    </qresource>
+</RCC>
