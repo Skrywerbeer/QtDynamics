@@ -28,8 +28,9 @@ void MechanicsModel::setRunning(bool running) {
 		_clock.start();
 		_timerID = startTimer(0);
 	}
-	else {
+	else if (!running && (_timerID != 0)) {
 		killTimer(_timerID);
+		_timerID = 0;
 	}
 	emit runningChanged();
 }

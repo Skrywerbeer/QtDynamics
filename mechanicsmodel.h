@@ -113,7 +113,7 @@ class MechanicsModel : public QObject, public QQmlParserStatus {
 		bool _running = true;
 
 		QElapsedTimer _clock;
-		int _timerID;
+		int _timerID = 0;
 };
 
 #endif // MECHANICSMODEL_H
