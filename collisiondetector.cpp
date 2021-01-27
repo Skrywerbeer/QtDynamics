@@ -4,8 +4,7 @@ CollisionDetector::CollisionDetector(QObject *parent) :
     QObject(parent) {}
 
 void CollisionDetector::checkAllItems() {
-	const qsizetype ITEM_COUNT = _items.count();
-	if (ITEM_COUNT < 1)
+	if (_items.count() == 0)
 		return;
 	for (const auto &item : _items)
 		if (collides(item))
