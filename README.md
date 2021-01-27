@@ -1,7 +1,7 @@
-#QtDynamics
+# QtDynamics
 An unofficial plugin for QML to aid in creating physics based animations.
 
-##Building
+## Building
 ```
 git clone https://github.com/Skrywerbeer/QtDynamics.git
 mkdir build
@@ -10,8 +10,8 @@ make
 ```
 And add the built plugin to your qml import path.
 `
-export QML2_IMPORT_PATH=/build/directory/imports
+export QML2_IMPORT_PATH=$QML2_IMPORT_PATH:$(pwd)/imports
 `
 
-#Usage
+## Usage
 Check the demos for usage examples.
