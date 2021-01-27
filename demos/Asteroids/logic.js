@@ -1,49 +1,44 @@
-.pragma library
-
-let asteroids = Array()
-
-let root
-let board
-
-function initLogicState(window, scoreBoard) {
-    root = window
-    board = scoreBoard
-}
+.import "global.js" as Global
 
 function newGame() {
+    gameOver.visible = false
+    ship.canPilot = true
     spawnAsteroid(80,
-                  Math.random()*(root.width - 80) ,
-                  Math.random()*(root.height - 80))
-    spawnAsteroid(80,
-                  Math.random()*(root.width - 80) ,
-                  Math.random()*(root.height - 80))
-    spawnAsteroid(80,
-                  Math.random()*(root.width - 80) ,
-                  Math.random()*(root.height - 80))
+                  Math.random()*(rootWindow.width - 80) ,
+                  Math.random()*(rootWindow.height - 80))
+    spawnAsteroid(60,
+                  Math.random()*(rootWindow.width - 60) ,
+                  Math.random()*(rootWindow.height - 60))
+    spawnAsteroid(40,
+                  Math.random()*(rootWindow.width - 40) ,
+                  Math.random()*(rootWindow.height - 40))
 }
 
 function endGame() {
-    for (let asteroid of asteroids)
+    gameOver.visible = true
+    ship.canPilot = false
+    for (let asteroid of Global.asteroids)
         asteroid.moving = false
+//        asteroid.destroy()
 }
 
 function spawnAsteroid(size, X, Y) {
     let comp = Qt.createComponent("Asteroid.qml")
-    let asteroid = comp.createObject(root, {
+    let asteroid = comp.createObject(rootWindow, {
                                          size: size,
                                          x: X - size/2,
                                          y: Y - size/2,
-                                         rotation: Math.random()*100
+                                         rotation: Math.random()*360
                                      })
-    asteroids.push(asteroid)
+    Global.asteroids.push(asteroid)
+    ship.collideables = Global.asteroids
 }
 
 function destroyAsteroid(asteroid) {
-    asteroids.splice(asteroids.indexOf(asteroid), 1)
-    board.incrementScore()
+    console.log(Global.asteroids.splice(Global.asteroids.indexOf(asteroid), 1))
+    scoreBoard.incrementScore()
     if (asteroid.size > 10) {
         spawnAsteroid(asteroid.size/2, asteroid.x, asteroid.y)
         spawnAsteroid(asteroid.size/2, asteroid.x, asteroid.y)
     }
-    asteroid.destroy()
 }

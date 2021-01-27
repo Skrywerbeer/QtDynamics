@@ -15,11 +15,9 @@ Window {
     SpaceShip {
         id: ship
 
-        x: parent.width/2 - width/2
-        y: parent.height/2 - height/2
-//        onShipDestroyed: Logic.endGame()
-//        onShipDestroyed: console.log("CRASH!!!")
+        onShipDestroyed: Logic.endGame()
     }
+
     Text {
         id: scoreBoard
 
@@ -38,15 +36,16 @@ Window {
         text: score
         Behavior on score {NumberAnimation {duration: 100}}
     }
+    Text {
+        id: gameOver
+        anchors.centerIn: parent
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        font.pointSize: 24
+        text: "GAME OVER"
+    }
 
     Component.onCompleted: {
-        Logic.initLogicState(rootWindow, scoreBoard)
         Logic.newGame()
-//        let comp = Qt.createComponent("SpaceShip.qml")
-//        let ship = comp.createObject(rootWindow, {
-//                                         x: 100,
-//                                         y: 100,
-//                                     })
-//        console.log(ship)
     }
 }

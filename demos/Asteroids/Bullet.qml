@@ -2,6 +2,7 @@ import QtQuick
 
 import QtDynamics
 import "logic.js" as Logic
+import "global.js" as Global
 
 Image {
     id: root
@@ -26,13 +27,14 @@ Image {
     }
     AABBCollisionDetector {
         id: detector
-        items: Logic.asteroids
+        target: root
+        items: Global.asteroids
         timerInterval: 50
         timerRunning: true
         onCollision: {
-            console.log("HIT")
-            Logic.destroyAsteroid(item)
             root.destroy()
+            item.destroy()
+            Logic.destroyAsteroid(item)
         }
     }
 }

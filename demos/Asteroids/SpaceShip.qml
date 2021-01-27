@@ -16,10 +16,12 @@ Image {
                                                   })
     }
 
+    property bool canPilot: true
     property bool engineOn: false
     property bool turningLeft: false
     property bool turningRight: false
     property bool fired: false
+    property alias collideables: detector.items
 
     signal shipDestroyed
 
@@ -49,11 +51,11 @@ Image {
         onMaximumYReached: root.y = -root.height+1
     }
     AABBCollisionDetector {
-        items: Logic.asteroids
+        id: detector
+        target: root
         timerInterval: 50
         timerRunning: true
-//        onCollision: root.shipDestroyed()
-//        onCollision: console.log("Your ship has crashed")
+        onCollision: root.shipDestroyed()
     }
 
     Behavior on rotation {NumberAnimation{ duration: 100}}
@@ -74,7 +76,17 @@ Image {
         onTriggered: fired = false
     }
 
+    onCanPilotChanged: {
+        if (!canPilot) {
+            engineOn = false
+            turningLeft = false
+            turningRight = false
+        }
+    }
+
     Keys.onPressed: {
+        if (!canPilot)
+            return
         switch (event.key) {
         case (Qt.Key_Up):
             event.accepeted = true
@@ -104,6 +116,8 @@ Image {
         }
     }
     Keys.onReleased: {
+        if (!canPilot)
+            return
         switch (event.key) {
         case (Qt.Key_Up):
             event.accepted = true
