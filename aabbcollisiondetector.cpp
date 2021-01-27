@@ -4,7 +4,6 @@ AABBCollisionDetector::AABBCollisionDetector(QObject *parent) :
     CollisionDetector(parent){}
 
 bool AABBCollisionDetector::collides(QQuickItem *item) {
-	qDebug() << "checking for item:" << item;
 	if (item == nullptr) {
 		qWarning("Checking for collision with null item");
 		return false;
