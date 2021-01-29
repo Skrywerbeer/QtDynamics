@@ -9,7 +9,7 @@ Window {
     width: 640
     height: 480
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("Bounce")
 
     Text {
         anchors {top: parent.top; horizontalCenter: parent.horizontalCenter}
