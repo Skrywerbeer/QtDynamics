@@ -26,8 +26,6 @@
         <file>Cannon/Tracer.qml</file>
         <file>CollisionDrag/CollisionDrag.qmlproject</file>
         <file>CollisionDrag/main.qml</file>
-        <file>planets/main.qml</file>
-        <file>planets/Planet.qml</file>
         <file>SolarSystem/Body.qml</file>
         <file>SolarSystem/main.qml</file>
         <file>SolarSystem/SolarSystem.qmlproject</file>
