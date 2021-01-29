@@ -15,10 +15,6 @@
         <file>Asteroids/spaceship_engine_off.svg</file>
         <file>Asteroids/spaceship_engine_on.png</file>
         <file>Asteroids/spaceship_engine_on.svg</file>
-        <file>bounce/Ball.qml</file>
-        <file>bounce/bounce.qmlproject</file>
-        <file>bounce/main.qml</file>
-        <file>bounce/Tracer.qml</file>
         <file>Cannon/cannon.png</file>
         <file>Cannon/Cannon.qml</file>
         <file>Cannon/Cannon.qmlproject</file>
@@ -42,6 +38,10 @@
         <file>Tension/String.qml</file>
         <file>Tension/StringElement.qml</file>
         <file>Tension/Tension.qmlproject</file>
+        <file>Bounce/Ball.qml</file>
+        <file>Bounce/bounce.qmlproject</file>
+        <file>Bounce/main.qml</file>
+        <file>Bounce/Tracer.qml</file>
     </qresource>
     <qresource prefix="/">
         <file>demoLoader.qml</file>
