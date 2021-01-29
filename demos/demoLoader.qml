@@ -10,40 +10,37 @@ Window {
     width: 300
 
 
-    GridLayout {
+    Grid {
         anchors.fill: parent
+        columns: 3
 
         Button {
             text: "Asteroids"
-            onClicked: loader.state = "Asteroids"
+            onClicked: loader.source = "qrc:/demo/Asteroids/main.qml"
         }
         Button {
             text: "SolarSystem"
-            onClicked: loader.state = "SolarSystem"
+            onClicked: loader.source = "qrc:/demo/SolarSystem/main.qml"
         }
         Button {
             text: "Spring"
-            onClicked: loader.state = "Spring"
+            onClicked: loader.source = "qrc:/demo/Spring/main.qml"
+        }
+        Button {
+            text: "CollisionDrag"
+            onClicked: loader.source = "qrc:/demo/CollisionDrag/main.qml"
+        }
+        Button {
+            text: "Tension"
+            onClicked: loader.source = "qrc:/demo/Tension/main.qml"
+        }
+        Button {
+            text: "Bounce"
+            onClicked: loader.source = "qrc:/demo/Bounce/main.qml"
         }
     }
 
     Loader {
         id: loader
-
-        states: [
-            State {
-                name: "Asteroids"
-                PropertyChanges {target: loader; source: "qrc:/demo/Asteroids/main.qml"}
-            },
-            State {
-                name: "SolarSystem"
-                PropertyChanges {target: loader; source: "qrc:/demo/SolarSystem/main.qml"}
-            },
-            State {
-                name: "Spring"
-                PropertyChanges {target: loader; source: "qrc:/demo/Spring/main.qml"}
-            }
-
-        ]
     }
 }
