@@ -5,7 +5,6 @@ project(QtDynamicsDemos
 	VERSION 1.0)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-#set(CMAKE_INCLUDE_BINARY_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -27,3 +26,7 @@ add_executable(QtDynamicsDemos
 target_link_libraries(QtDynamicsDemos PRIVATE
 	Qt${QT_VERSION_MAJOR}::Core
 	Qt${QT_VERSION_MAJOR}::Quick)
+
+set(QML_IMPORT_PATH ${MODULE_LOCATION}
+	CACHE STRING "Plugin import path"
+	FORCE)
