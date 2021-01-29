@@ -43,7 +43,12 @@ Window {
         verticalAlignment: Text.AlignVCenter
         font.pointSize: 24
         text: "GAME OVER"
+
+        Keys.onPressed: {
+            Logic.newGame()
+        }
     }
+
 
     Component.onCompleted: {
         Logic.newGame()

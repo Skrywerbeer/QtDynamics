@@ -8,12 +8,13 @@ Image {
 
     function fire() {
         let bulletComponent = Qt.createComponent("Bullet.qml")
-        let bullet = bulletComponent.createObject(root.parent, {
+        let bullet = bulletComponent.createObject(rootWindow, {
                                                       x: root.x + root.width/2 -10,
                                                       y: root.y + root.height/2 -10,
                                                       rotation: root.rotation,
                                                       shipVelocity: model.velocity.magnitude
                                                   })
+
     }
 
     property bool canPilot: true
@@ -107,6 +108,7 @@ Image {
         case (Qt.Key_Space):
             event.accepeted = true
             if (!fired) {
+//                Logic.spawnAsteroid(10, rootWindow.width/2, rootWindow.height/2)
                 root.fire()
                 fired = true
             }

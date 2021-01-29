@@ -33,7 +33,7 @@ Image {
         timerRunning: true
         onCollision: {
             root.destroy()
-            item.destroy()
+//            Global.destroyAsteroid(item)
             Logic.destroyAsteroid(item)
         }
     }

@@ -16,11 +16,11 @@ Image {
         id: model
 
         minimumX: 0
-//        maximumX: root.parent.width - root.width
-        maximumX: rootWindow.width - root.width
+        maximumX: root.parent.width - root.width
+//        maximumX: rootWindow.width - root.width
         minimumY: 0
-//        maximumY: root.parent.height - root.height
-        maximumY: rootWindow.height - root.height
+        maximumY: root.parent.height - root.height
+//        maximumY: rootWindow.height - root.height
 
         velocity: Vector {
             angle: Math.random()*360
