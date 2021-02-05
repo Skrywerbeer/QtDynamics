@@ -33,6 +33,12 @@
         <file>Bounce/Ball.qml</file>
         <file>Bounce/main.qml</file>
         <file>Bounce/Tracer.qml</file>
+        <file>Breakout/main.qml</file>
+        <file>Breakout/Ball.qml</file>
+        <file>Breakout/Brick.qml</file>
+        <file>Breakout/logic.js</file>
+        <file>Breakout/Paddle.qml</file>
+        <file>Breakout/BrickWall.qml</file>
     </qresource>
     <qresource prefix="/">
         <file>demoLoader.qml</file>

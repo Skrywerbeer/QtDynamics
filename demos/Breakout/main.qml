@@ -5,6 +5,7 @@ Window {
 
     width: 300
     height: 600
+    visible: true
 
     BrickWall {
         id: wall

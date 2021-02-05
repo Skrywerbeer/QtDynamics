@@ -38,6 +38,10 @@ Window {
             text: "Bounce"
             onClicked: loader.source = "qrc:/demo/Bounce/main.qml"
         }
+        Button {
+            text: "Breakout"
+            onClicked: loader.source = "qrc:/demo/Breakout/main.qml"
+        }
     }
 
     Loader {
