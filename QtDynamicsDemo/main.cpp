@@ -3,7 +3,7 @@
 
 int main(int argc, char **argv) {
 	QGuiApplication app(argc, argv);
-	QQmlApplicationEngine engine(QUrl("qrc:/demoLoader.qml"));
+	QQmlApplicationEngine engine(QUrl("qrc:/qt/qml/QtDynamicsDemo/demoLoader.qml"));
 
 	return app.exec();
 }

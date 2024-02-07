@@ -106,7 +106,7 @@ class MechanicsModel : public QObject, public QQmlParserStatus {
 		double _minimumY = -1e6;
 		double _maximumY = 1e6;
 
-		Vector *_displacement = new Vector(0, 0);
+		Vector *_displacement = new Vector(0, 0, this);
 		Vector *_velocity = nullptr;
 		Vector *_acceleration = nullptr;
 

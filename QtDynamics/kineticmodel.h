@@ -47,7 +47,7 @@ class KineticModel : public MechanicsModel {
 		void massChanged();
 
 	private:
-		Vector *_force = new Vector;
+		Vector *_force = new Vector(this);
 		QList<Vector *> _forces;
 		double _mass = 1;
 

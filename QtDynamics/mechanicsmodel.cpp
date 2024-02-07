@@ -178,9 +178,9 @@ void MechanicsModel::componentComplete() {
 	if (_target == nullptr)
 		_target = qobject_cast<QQuickItem *>(parent());
 	if (_velocity == nullptr)
-		_velocity = new Vector;
+		_velocity = new Vector(this);
 	if (_acceleration == nullptr)
-		_acceleration = new Vector;
+		_acceleration = new Vector(this);
 	if (_running) {
 		_clock.start();
 		_timerID = startTimer(0);

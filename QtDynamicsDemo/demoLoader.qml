@@ -16,31 +16,31 @@ Window {
 
         Button {
             text: "Asteroids"
-            onClicked: loader.source = "qrc:/demo/Asteroids/main.qml"
+            onClicked: loader.source = "qrc:/qt/qml/QtDynamicsDemo/Asteroids/main.qml"
         }
         Button {
             text: "SolarSystem"
-            onClicked: loader.source = "qrc:/demo/SolarSystem/main.qml"
+            onClicked: loader.source = "qrc:/qt/qml/QtDynamicsDemo/SolarSystem/main.qml"
         }
         Button {
             text: "Spring"
-            onClicked: loader.source = "qrc:/demo/Spring/main.qml"
+            onClicked: loader.source = "qrc:/qt/qml/QtDynamicsDemo/Spring/main.qml"
         }
         Button {
             text: "CollisionDrag"
-            onClicked: loader.source = "qrc:/demo/CollisionDrag/main.qml"
+            onClicked: loader.source = "qrc:/qt/qml/QtDynamicsDemo/CollisionDrag/main.qml"
         }
         Button {
             text: "Tension"
-            onClicked: loader.source = "qrc:/demo/Tension/main.qml"
+            onClicked: loader.source = "qrc:/qt/qml/QtDynamicsDemo/Tension/main.qml"
         }
         Button {
             text: "Bounce"
-            onClicked: loader.source = "qrc:/demo/Bounce/main.qml"
+            onClicked: loader.source = "qrc:/qt/qml/QtDynamicsDemo/Bounce/main.qml"
         }
         Button {
             text: "Breakout"
-            onClicked: loader.source = "qrc:/demo/Breakout/main.qml"
+            onClicked: loader.source = "qrc:/qt/qml/QtDynamicsDemo/Breakout/main.qml"
         }
     }
 
