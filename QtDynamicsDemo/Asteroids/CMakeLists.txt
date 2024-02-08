@@ -20,6 +20,7 @@ qt_standard_project_setup(REQUIRES 6.5)
 set(MODULE_QML
 	main.qml
 	Asteroid.qml
+	Bullet.qml
 	SpaceShip.qml
 
 	global.js

@@ -11,7 +11,7 @@ Image {
 
     width: 20
     height: 20
-    source: "bullet.png"
+    source: "qrc:/qt/qml/QtDynamicsDemo/Asteroids/bullet.png"
 
     KinematicModel {
         id: model

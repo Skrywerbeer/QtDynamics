@@ -8,7 +8,7 @@ function setRootItem(item) {
 }
 
 function spawnAsteroid(size, X, Y) {
-    let comp = Qt.createComponent("Asteroid.qml")
+    let comp = Qt.createComponent("qrc:/qt/qml/QtDynamicsDemo/Asteroids/Asteroid.qml")
     let asteroid = comp.createObject(root, {
                                          size: size,
                                          x: X - size/2,

@@ -7,7 +7,7 @@ Image {
     id: root
 
     function fire() {
-        let bulletComponent = Qt.createComponent("Bullet.qml")
+        let bulletComponent = Qt.createComponent("qrc:/qt/qml/QtDynamicsDemo/Asteroids/Bullet.qml")
         let bullet = bulletComponent.createObject(rootWindow, {
                                                       x: root.x + root.width/2 -10,
                                                       y: root.y + root.height/2 -10,
