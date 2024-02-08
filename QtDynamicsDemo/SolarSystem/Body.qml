@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Particles
 
 import QtDynamics
 
@@ -18,11 +19,10 @@ Rectangle {
         id: model
         running: true
         velocity: Vector {
-            angle: -45
+            angle: toSun.angle - 90;
             magnitude: sun !== null ?
                            Math.sqrt(1000*root.sun.mass/toSun.magnitude) : 0
         }
-        onVelocityChanged: console.log("velocity angle: " + velocity.angle)
         forces: [
             Vector {
                 id: gravity
@@ -39,11 +39,41 @@ Rectangle {
         y: root.sun !== null ?
                (sun.y + sun.height/2) - (root.y + root.height/2) : 0
     }
-    VectorArrow {
-        anchors.centerIn: parent
-        target: toSun
-        proportional: true
-        lineWidth: 4
-        color: "white"
-    }
+    // VectorArrow {
+    //     anchors.centerIn: parent
+    //     target: toSun
+    //     proportional: true
+    //     lineWidth: 4
+    //     color: "white"
+    // }
+    // ParticleSystem {
+    //     id: partSys;
+    // }
+    // Emitter {
+    //     id: emitter;
+    //     system: partSys;
+
+    //     enabled: false;
+    //     lifeSpan: 5000;
+    //     lifeSpanVariation: 100;
+    //     emitRate: 100;
+    // }
+    // ItemParticle {
+    //     system: partSys;
+    //     delegate: Rectangle {
+    //         width: 4;
+    //         height: width;
+    //         radius: width/2;
+    //         color: Qt.lighter(root.color);
+    //     }
+    // }
+    // Timer {
+    //     interval: 100;
+    //     running: true;
+    //     repeat: true;
+    //     onTriggered: function() {
+    //         emitter.burst(1, emitter.x, emitter.y);
+    //     }
+    // }
+
 }
