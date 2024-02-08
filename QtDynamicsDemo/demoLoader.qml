@@ -27,6 +27,10 @@ Window {
             onClicked: loader.source = "qrc:/qt/qml/QtDynamicsDemo/Spring/main.qml"
         }
         Button {
+            text: "Cannon";
+            onClicked: loader.source = "qrc:/qt/qml/QtDynamicsDemo/Cannon/main.qml";
+        }
+        Button {
             text: "CollisionDrag"
             onClicked: loader.source = "qrc:/qt/qml/QtDynamicsDemo/CollisionDrag/main.qml"
         }
