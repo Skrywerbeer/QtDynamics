@@ -6,6 +6,7 @@ Item {
 
     required property var traceItem
     property color traceColor: "black"
+    property alias interval: timer.interval;
 
     ParticleSystem {
         id: partSys
@@ -26,6 +27,8 @@ Item {
         }
     }
     Timer {
+        id: timer;
+
         interval: 50
         repeat: true
         running: true
